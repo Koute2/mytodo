@@ -1,7 +1,9 @@
 class TodosController < ApplicationController
 	def index
 		@todos = current_user.todos.includes(:tasks, :categories)
-		@categories = current_user.categories + Category.where(created_by: nil)
+		#この行は動くかどうか怪しい
+		#@categories = Category.where(created_by: nil || current_user.id)
+		@categories = current_user.categories && Category.where(created_by: nil)
 	end
 
 	def create
@@ -20,6 +22,6 @@ class TodosController < ApplicationController
 
 	private
 		def todo_params
-			params.require(:todo).permit(:title, :body, :status)
+			params.require(:todo).permit(:title, :body, :user_id, :status, task_attributes: [:user_id, :body, :status], subscribe_attributes: [:user_id, :category_id])
 		end
 end
