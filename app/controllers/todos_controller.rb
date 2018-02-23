@@ -22,6 +22,10 @@ class TodosController < ApplicationController
 
 	private
 		def todo_params
-			params.require(:todo).permit(:title, :body, :user_id, :status, task_attributes: [:user_id, :body, :status], subscribe_attributes: [:user_id, :category_id])
+			params.require(:todo).permit(
+				:title, :body, :user_id, :status,
+				task_attributes: [:user_id, :body, :status],
+				subscribe_attributes: [:user_id, :category_id]
+				)
 		end
 end

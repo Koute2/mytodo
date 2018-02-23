@@ -5,6 +5,13 @@ class CategoriesController < ApplicationController
 		@category.save
 	end
 
+	def update
+		@category = Category.find(params[:id])
+		if @category.created_by == current_user.id
+			@category.update(category_params)
+		end
+	end
+
 	def destroy
 		category = Category.find(params[:id])
 		if category.created_by == current_user.id
