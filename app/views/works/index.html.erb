@@ -1,1 +1,16 @@
-<%= react_component("HelloWorld") %>
+<%= react_component("WorkLists", { works: @works }) %>
+
+テスト機能
+<%= form_for(@work) do |f| %>
+	<%= f.text_field :title, placeholder: "title" %>
+	<%= f.text_field :body, placeholder: "body" %>
+	<%= f.submit "送信" %>
+<% end %>
+
+<% @works.each do |work| %>
+	<%= form_for(work) do |f| %>
+		title: <%= f.text_field :title %>
+		body :<%= f.text_field :body %>
+		<%= f.submit "更新" %>
+	<% end %>
+<% end %>
