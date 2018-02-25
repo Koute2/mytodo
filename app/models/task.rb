@@ -1,3 +1,3 @@
 class Task < ApplicationRecord
-	belongs_to :todo
+	belongs_to :work
 end
