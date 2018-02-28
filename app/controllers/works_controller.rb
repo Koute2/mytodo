@@ -1,26 +1,31 @@
 class WorksController < ApplicationController
+	# skip_before_action :verify_authenticity_token, if: :json_request?
+	# skip_before_action :authenticate_user!, if: :json_request?
+
+  	# def json_request?
+   #  	request.format.json?
+   #  end
+
 	def index
-		@work = Work.new
-		@works = current_user.works.to_a
+		@works = current_user.works.reverse_order
 		#この行は動くかどうか怪しい
 		#@categories = Category.where(created_by: nil || current_user.id).to_a
 	end
 
 	def create
-		@work = current_user.works.create(work_params)
-		index
+		@work = current_user.works.create
+		@works = current_user.works.reverse_order
+		render :index
 	end
 
 	def update
 		@work = Work.find(params[:id])
 		@work.update(work_params)
-		index
 	end
 
 	def destroy
 		work = Work.find(params[:id])
 		work.destroy
-		index
 	end
 
 	private

@@ -14,3 +14,74 @@
  *= require_tree .
  *= require_self
  */
+
+textarea, input {
+	background-color: transparent;
+	border: 0;
+	padding: 0;
+	flex: auto;
+}
+
+textarea {
+	height: 3rem;
+	resize: none;
+}
+
+input:focus, select:focus, textarea:focus, button:focus {
+	outline: none;
+}
+
+.container {
+	background-color: #F5F5F5;
+	width: 100vw;
+	height: 100vh;
+	display: flex;
+	flex-direction: column;
+}
+
+.WorksList {
+	background-color: transparent;
+	overflow: auto;
+	flex: auto;
+}
+
+.WorkContainer {
+	background-color: #FFFFFF;
+	margin: 0.29rem;
+	border-radius: 0.43rem;
+	padding: 0.43rem;
+}
+
+.flex {
+	display: flex;
+}
+
+.bottomWidget {
+	text-align: right;
+}
+
+.addButton {
+	text-align: right;
+	line-height: 1;
+}
+
+.addButton i {
+	color: #00C853;
+	font-size: 3rem;
+	border-radius: 1.5rem;
+	box-shadow: 0 0 1rem rgba(0,0,0,0.50);
+}
+
+.closeBar {
+	text-align: center;
+	line-height: 1;
+	margin-bottom: -0.43rem;
+}
+.deleteIcon {
+	color: #DD2C00;
+}
+
+.closeBody {
+	color: #E0E0E0;
+}
+

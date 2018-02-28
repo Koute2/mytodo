@@ -1,7 +1,7 @@
 class Work < ApplicationRecord
-	has_many :subscribes, dependent: :destroy
+	has_many :subscribes
 	has_many :categories, through: :subscribes
-	has_many :tasks, dependent: :destroy
+	has_many :tasks
 	belongs_to :user
 
 	accepts_nested_attributes_for :subscribes

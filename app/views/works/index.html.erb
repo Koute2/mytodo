@@ -1,16 +1,7 @@
-<%= react_component("WorkLists", { works: @works }) %>
-
-テスト機能
-<%= form_for(@work) do |f| %>
-	<%= f.text_field :title, placeholder: "title" %>
-	<%= f.text_field :body, placeholder: "body" %>
-	<%= f.submit "送信" %>
-<% end %>
-
-<% @works.each do |work| %>
-	<%= form_for(work) do |f| %>
-		title: <%= f.text_field :title %>
-		body :<%= f.text_field :body %>
-		<%= f.submit "更新" %>
+<div class="WorksList">
+	<% @works.each do |work| %>
+		<%= react_component("WorkContainer", { work: work, work_path: work_path(work), token: form_authenticity_token }) %>
 	<% end %>
-<% end %>
+	<div class="bottomWidget"><%= link_to works_path, method: :post, class: "addButton" do %><i class="material-icons">add_circle</i><% end %></div>
+</div>
+
