@@ -22,8 +22,12 @@ textarea, input {
 	flex: auto;
 }
 
+textarea::placeholder, input::placeholder {
+	color: #BDBDBD;
+}
+
 textarea {
-	height: 3rem;
+	min-height: 6rem;
 	resize: none;
 }
 
@@ -50,38 +54,55 @@ input:focus, select:focus, textarea:focus, button:focus {
 	margin: 0.29rem;
 	border-radius: 0.43rem;
 	padding: 0.43rem;
+	box-shadow: 0 1px rgba(0,0,0,0.20);
+}
+
+.onHover {
+	transition: all 0.15s ease-out;
+}
+
+.onHover:hover {
+	background-color: #F5F5F5;
 }
 
 .flex {
 	display: flex;
 }
 
-.bottomWidget {
-	text-align: right;
+.flexContent {
+	flex: auto;
+}
+
+.bar {
+	background-color: #EEEEEE;
+	height: 2px;
+	border-radius: 1px;
+	margin: 0.29rem;
 }
 
 .addButton {
-	text-align: right;
-	line-height: 1;
-}
-
-.addButton i {
 	color: #00C853;
-	font-size: 3rem;
-	border-radius: 1.5rem;
-	box-shadow: 0 0 1rem rgba(0,0,0,0.50);
+	text-shadow: 0 4px 4px rgba(0,0,0,0.20);
+	position: absolute;
+	bottom: 0;
+	right: 0;
 }
 
 .closeBar {
 	text-align: center;
 	line-height: 1;
+	margin-right: -0.43rem;
+	margin-left: -0.43rem;
 	margin-bottom: -0.43rem;
+	border-bottom-right-radius: 0.43rem;
+	border-bottom-left-radius: 0.43rem;
 }
+
 .deleteIcon {
 	color: #DD2C00;
 }
 
-.closeBody {
+.closeBody, .openBody {
 	color: #E0E0E0;
 }
 
