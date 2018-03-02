@@ -24,15 +24,19 @@ textarea, input {
 
 textarea::placeholder, input::placeholder {
 	color: #BDBDBD;
+	font-family: 'Material Icons';
 }
 
 textarea {
-	min-height: 6rem;
 	resize: none;
 }
 
 input:focus, select:focus, textarea:focus, button:focus {
 	outline: none;
+}
+
+.material-icons {
+	font-size: 1.5em;
 }
 
 .container {
@@ -51,9 +55,9 @@ input:focus, select:focus, textarea:focus, button:focus {
 
 .WorkContainer {
 	background-color: #FFFFFF;
-	margin: 0.29rem;
-	border-radius: 0.43rem;
-	padding: 0.43rem;
+	margin: 0.29em;
+	border-radius: 0.43em;
+	padding: 0.43em;
 	box-shadow: 0 1px rgba(0,0,0,0.20);
 }
 
@@ -77,7 +81,7 @@ input:focus, select:focus, textarea:focus, button:focus {
 	background-color: #EEEEEE;
 	height: 2px;
 	border-radius: 1px;
-	margin: 0.29rem;
+	margin: 0.29em;
 }
 
 .addButton {
@@ -86,16 +90,17 @@ input:focus, select:focus, textarea:focus, button:focus {
 	position: absolute;
 	bottom: 0;
 	right: 0;
+	font-size: 4em;
 }
 
 .closeBar {
 	text-align: center;
 	line-height: 1;
-	margin-right: -0.43rem;
-	margin-left: -0.43rem;
-	margin-bottom: -0.43rem;
-	border-bottom-right-radius: 0.43rem;
-	border-bottom-left-radius: 0.43rem;
+	margin-right: -0.43em;
+	margin-left: -0.43em;
+	margin-bottom: -0.43em;
+	border-bottom-right-radius: 0.43em;
+	border-bottom-left-radius: 0.43em;
 }
 
 .deleteIcon {

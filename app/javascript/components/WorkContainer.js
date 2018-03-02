@@ -104,14 +104,14 @@ export default class WorkContainer extends React.Component {
   render () {
     if (this.state.show == false) {
       return null;
-    } else if (this.state.openBody == false && this.state.title != "") {
+    } else if (this.state.openBody == false) {
       return <div onClick={this.toggleBody} className="WorkContainer flex onHover"><span className="flexContent">{this.state.title}</span><i className="material-icons openBody">expand_more</i></div>;
     } else {
       return (
         <div className="WorkContainer">
-          <div className="flex"><input type="text" onChange={this.modTitle} value={this.state.title} placeholder="Title:" /><i className="material-icons deleteIcon" onClick={this.delete}>delete_sweep</i></div>
+          <div className="flex"><input type="text" onChange={this.modTitle} value={this.state.title} placeholder="work" /><i className="material-icons deleteIcon" onClick={this.delete}>delete_sweep</i></div>
           <div className="bar" />
-          <div className="flex"><textarea type="text" onChange={this.modBody} value={this.state.body} placeholder="Details:" /></div>
+          <div className="flex"><textarea type="text" rows="6" onChange={this.modBody} value={this.state.body} placeholder="event_note" /></div>
           <div onClick={this.toggleBody} className="closeBar onHover"><i className="material-icons closeBody">expand_less</i></div>
         </div>
         );
