@@ -20,6 +20,12 @@ textarea, input {
 	border: 0;
 	padding: 0;
 	flex: auto;
+	transition: background-color 0.15s ease-out;
+	border-radius: 0.43em;
+}
+
+textarea:hover, input:hover {
+	background-color: #E3F2FD;
 }
 
 textarea::placeholder, input::placeholder {
@@ -40,7 +46,7 @@ input:focus, select:focus, textarea:focus, button:focus {
 }
 
 .container {
-	background-color: #F5F5F5;
+	background-color: rgba(0,0,0,0.12);
 	width: 100vw;
 	height: 100vh;
 	display: flex;
@@ -53,19 +59,27 @@ input:focus, select:focus, textarea:focus, button:focus {
 	flex: auto;
 }
 
+.MobileMenu {
+	font-size: 1.5em;
+	background-color: #EF5350;
+	display: flex;
+	box-shadow: 0 4px 4px rgba(0, 0, 0, 0.20);
+	padding: 0.43em;
+}
+
 .WorkContainer {
 	background-color: #FFFFFF;
 	margin: 0.29em;
 	border-radius: 0.43em;
 	padding: 0.43em;
-	box-shadow: 0 1px rgba(0,0,0,0.20);
+	box-shadow: 1px 1px rgba(0,0,0,0.20);
 }
 
-.onHover {
+.animBar {
 	transition: all 0.15s ease-out;
 }
 
-.onHover:hover {
+.animBar:hover {
 	background-color: #F5F5F5;
 }
 
@@ -104,6 +118,11 @@ input:focus, select:focus, textarea:focus, button:focus {
 }
 
 .deleteIcon {
+	color: #BDBDBD;
+	transition: all 0.15s ease-out;
+}
+
+.deleteIcon:hover {
 	color: #DD2C00;
 }
 

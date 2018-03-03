@@ -12,32 +12,13 @@
 
 ActiveRecord::Schema.define(version: 20180224092811) do
 
-  create_table "categories", force: :cascade do |t|
-    t.string "name"
-    t.integer "created_by"
-    t.integer "color", default: 0
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["created_by"], name: "index_categories_on_created_by"
-  end
-
-  create_table "subscribes", force: :cascade do |t|
-    t.integer "todo_id"
-    t.integer "category_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["category_id"], name: "index_subscribes_on_category_id"
-    t.index ["todo_id"], name: "index_subscribes_on_todo_id"
-  end
-
   create_table "tasks", force: :cascade do |t|
-    t.integer "todo_id"
+    t.integer "work_id"
     t.string "body"
     t.integer "status", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["status"], name: "index_tasks_on_status"
-    t.index ["todo_id"], name: "index_tasks_on_todo_id"
+    t.index ["work_id"], name: "index_tasks_on_work_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -64,8 +45,6 @@ ActiveRecord::Schema.define(version: 20180224092811) do
     t.integer "status", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["status"], name: "index_works_on_status"
-    t.index ["title"], name: "index_works_on_title"
     t.index ["user_id"], name: "index_works_on_user_id"
   end
 

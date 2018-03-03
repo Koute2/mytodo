@@ -35,8 +35,7 @@ export default class WorkContainer extends React.Component {
       title: event.target.value,
       inputCount: count
     });
-    console.log('Waiting for your last input...');
-    setTimeout(this.waitLastInput, 5000, count);
+    setTimeout(this.waitLastInput, 3000, count);
   }
 
   modBody (event) {
@@ -46,18 +45,15 @@ export default class WorkContainer extends React.Component {
       body: event.target.value,
       inputCount: count
     });
-    console.log('Waiting for your last input...');
-    setTimeout(this.waitLastInput, 5000, count);
+    setTimeout(this.waitLastInput, 3000, count);
   }
 
   waitLastInput (count) {
-    console.log('Your input was ' + count + 'th and the state is ' + this.state.inputCount);
-    count == this.state.inputCount ? this.submitState() : console.log('Canceled transaction');
+    count == this.state.inputCount ? this.submitState() : null;
   }
 
   submitState () {
-    console.log('now committing');
-    const url = this.props.work_path + '.json';
+    const url = this.props.url + '/' + this.props.work.id + '.json';
     const token = this.props.token;
     fetch(url, {
       headers: {
@@ -73,14 +69,14 @@ export default class WorkContainer extends React.Component {
     }).catch(error => {
       console.error('Error: ', error)
     }).then(response => {
-      console.log('Success: ', response)
+      console.log('Success: ', response);
     });
   }
 
   delete () {
     if (confirm("削除しますか？")) {
       console.log('start deleting');
-      const url = this.props.work_path + '.json';
+      const url = this.props.url + '/' + this.props.work.id + '.json';
       const token = this.props.token;
       fetch(url, {
         headers: {
@@ -92,11 +88,10 @@ export default class WorkContainer extends React.Component {
       }).catch(error => {
         console.error('Error: ', error)
       }).then(response => {
-        console.log('Success: ', response);
+        console.log('Deleted: ', response);
         this.setState({
           show: false
         });
-        console.log('bye');
       });
     }
   }
@@ -105,14 +100,14 @@ export default class WorkContainer extends React.Component {
     if (this.state.show == false) {
       return null;
     } else if (this.state.openBody == false) {
-      return <div onClick={this.toggleBody} className="WorkContainer flex onHover"><span className="flexContent">{this.state.title}</span><i className="material-icons openBody">expand_more</i></div>;
+      return <div onClick={this.toggleBody} className="WorkContainer flex animBar"><span className="flexContent">{this.state.title}</span><i className="material-icons openBody">expand_more</i></div>;
     } else {
       return (
         <div className="WorkContainer">
           <div className="flex"><input type="text" onChange={this.modTitle} value={this.state.title} placeholder="work" /><i className="material-icons deleteIcon" onClick={this.delete}>delete_sweep</i></div>
           <div className="bar" />
           <div className="flex"><textarea type="text" rows="6" onChange={this.modBody} value={this.state.body} placeholder="event_note" /></div>
-          <div onClick={this.toggleBody} className="closeBar onHover"><i className="material-icons closeBody">expand_less</i></div>
+          <div onClick={this.toggleBody} className="closeBar animBar"><i className="material-icons closeBody">expand_less</i></div>
         </div>
         );
     }

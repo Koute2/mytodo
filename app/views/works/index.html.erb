@@ -1,7 +1,4 @@
 <div class="WorksList">
-	<% @works.each do |work| %>
-		<%= react_component("WorkContainer", { work: work, work_path: work_path(work), token: form_authenticity_token }) %>
-	<% end %>
+	<%= react_component("WorksList", { works: @works, url: works_path, token: form_authenticity_token }) %>
 	<%= link_to "add_circle", works_path, method: :post, class: "addButton material-icons" %>
 </div>
-

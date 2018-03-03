@@ -7,7 +7,7 @@ class WorksController < ApplicationController
    #  end
 
 	def index
-		@works = current_user.works.reverse_order
+		@works = current_user.works.reverse_order.to_a
 		#この行は動くかどうか怪しい
 		#@categories = Category.where(created_by: nil || current_user.id).to_a
 	end
