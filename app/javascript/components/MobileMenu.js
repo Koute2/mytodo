@@ -5,16 +5,13 @@ export default class MobileMenu extends React.Component {
   constructor (props) {
   	super(props);
   	this.state = {
-  		filter: ""
+  		filter: this.props.filter
   	};
   	this.handleInput = this.handleInput.bind(this);
   }
 
   handleInput (event) {
   	const newFilter = event.target.value;
-  	this.setState({
-  		filter: newFilter
-  	});
   	this.props.onChange(newFilter);
   }
 

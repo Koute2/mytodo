@@ -19,41 +19,44 @@ export default class WorkContainer extends React.Component {
   }
 
   componentWillMount () {
-    this.state.title == "" ? this.setState({openBody: true}) : null;
+    this.props.work.openBody || this.state.title == "" ? this.setState({openBody: true}) : null;
   }
 
   componentWillReceiveProps (nextProps) {
     this.setState({
       title: nextProps.work.title,
       body: nextProps.work.body,
-      openBody: false,
       inputCount: 0
     });
-    nextProps.work.title == "" ? this.setState({openBody: true}) : null;
+    nextProps.work.openBody || nextProps.work.title == "" ? this.setState({openBody: true}) : this.setState({openBody: false});
   }
 
   toggleBody () {
-    this.state.openBody && this.state.title != "" ? this.setState({openBody: false}) : this.setState({openBody: true});
+    if (this.state.openBody && this.state.title != "") {
+      this.setState({openBody: false});
+      this.props.toggleBody(this.props.work.id, false);
+    } else {
+      this.setState({openBody: true});
+      this.props.toggleBody(this.props.work.id, true);
+    }
   }
 
   modTitle (event) {
-    let count = this.state.inputCount;
-    count++;
+    const count = this.state.inputCount + 1;
     this.setState({
       title: event.target.value,
       inputCount: count
     });
-    setTimeout(this.waitLastInput, 3000, count);
+    setTimeout(this.waitLastInput, 2000, count);
   }
 
   modBody (event) {
-    let count = this.state.inputCount;
-    count++;
+    const count = this.state.inputCount + 1;
     this.setState({
       body: event.target.value,
       inputCount: count
     });
-    setTimeout(this.waitLastInput, 3000, count);
+    setTimeout(this.waitLastInput, 2000, count);
   }
 
   waitLastInput (count) {
@@ -78,6 +81,7 @@ export default class WorkContainer extends React.Component {
       console.error('Error: ', error)
     }).then(response => {
       console.log('Success: ', response);
+      this.props.onChange(this.props.work.id, this.state.title, this.state.body)
     });
   }
 
@@ -97,16 +101,13 @@ export default class WorkContainer extends React.Component {
         console.error('Error: ', error)
       }).then(response => {
         console.log('Deleted: ', response);
-        // 親にアクセスして該当するIDを持つObjectをArray(works)から削除してもらう
-
+        this.props.onDelete(this.props.work.id);
       });
     }
   }
 
   render () {
-    if (this.state.show == false) {
-      return null;
-    } else if (this.state.openBody == false) {
+    if (this.state.openBody == false) {
       return <div onClick={this.toggleBody} className="WorkContainer flex animBar"><span className="flexContent">{this.state.title}</span><i className="material-icons openBody">expand_more</i></div>;
     } else {
       return (
@@ -116,7 +117,7 @@ export default class WorkContainer extends React.Component {
           <div className="flex"><textarea type="text" rows="6" onChange={this.modBody} value={this.state.body} placeholder="event_note" /></div>
           <div onClick={this.toggleBody} className="closeBar animBar"><i className="material-icons closeBody">expand_less</i></div>
         </div>
-        );
+      );
     }
   }
 }
