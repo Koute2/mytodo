@@ -8,7 +8,6 @@ export default class WorkContainer extends React.Component {
       title: this.props.work.title,
       body: this.props.work.body,
   		openBody: false,
-      show: true,
       inputCount: 0
   	};
     this.toggleBody = this.toggleBody.bind(this);
@@ -20,8 +19,17 @@ export default class WorkContainer extends React.Component {
   }
 
   componentWillMount () {
-    this.state.title ? null : this.setState({title: "", openBody: true});
-    this.state.body ? null : this.setState({body: ""});
+    this.state.title == "" ? this.setState({openBody: true}) : null;
+  }
+
+  componentWillReceiveProps (nextProps) {
+    this.setState({
+      title: nextProps.work.title,
+      body: nextProps.work.body,
+      openBody: false,
+      inputCount: 0
+    });
+    nextProps.work.title == "" ? this.setState({openBody: true}) : null;
   }
 
   toggleBody () {
@@ -89,9 +97,8 @@ export default class WorkContainer extends React.Component {
         console.error('Error: ', error)
       }).then(response => {
         console.log('Deleted: ', response);
-        this.setState({
-          show: false
-        });
+        // 親にアクセスして該当するIDを持つObjectをArray(works)から削除してもらう
+
       });
     }
   }

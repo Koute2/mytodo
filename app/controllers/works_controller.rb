@@ -13,7 +13,7 @@ class WorksController < ApplicationController
 	end
 
 	def create
-		@work = current_user.works.create
+		@work = current_user.works.create(title: "", body: "")
 		@works = current_user.works.reverse_order
 		render :index
 	end

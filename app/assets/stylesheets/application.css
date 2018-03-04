@@ -46,7 +46,7 @@ input:focus, select:focus, textarea:focus, button:focus {
 }
 
 .container {
-	background-color: rgba(0,0,0,0.12);
+	background: linear-gradient(to bottom right, #607D8B 10%, #EEEEEE 90%);
 	width: 100vw;
 	height: 100vh;
 	display: flex;
@@ -54,17 +54,20 @@ input:focus, select:focus, textarea:focus, button:focus {
 }
 
 .WorksList {
-	background-color: transparent;
 	overflow: auto;
 	flex: auto;
 }
 
 .MobileMenu {
 	font-size: 1.5em;
-	background-color: #EF5350;
+	background-color: #009688;
 	display: flex;
 	box-shadow: 0 4px 4px rgba(0, 0, 0, 0.20);
 	padding: 0.43em;
+}
+
+.MobileMenu input:focus {
+	background-color: #52c7b8;
 }
 
 .WorkContainer {
@@ -99,7 +102,7 @@ input:focus, select:focus, textarea:focus, button:focus {
 }
 
 .addButton {
-	color: #00C853;
+	color: #009688;
 	text-shadow: 0 4px 4px rgba(0,0,0,0.20);
 	position: absolute;
 	bottom: 0;
