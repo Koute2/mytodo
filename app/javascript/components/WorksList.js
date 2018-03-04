@@ -28,7 +28,6 @@ export default class WorksList extends React.Component {
   	this.setState({
   		works: newWorks
   	});
-  	console.log(newWorks);
   }
 
   changeFilter (newFilter) {

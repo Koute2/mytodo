@@ -25,18 +25,15 @@ export default class WorkContainer extends React.Component {
   componentWillReceiveProps (nextProps) {
     this.setState({
       title: nextProps.work.title,
-      body: nextProps.work.body,
-      inputCount: 0
+      body: nextProps.work.body
     });
     nextProps.work.openBody || nextProps.work.title == "" ? this.setState({openBody: true}) : this.setState({openBody: false});
   }
 
   toggleBody () {
     if (this.state.openBody && this.state.title != "") {
-      this.setState({openBody: false});
       this.props.toggleBody(this.props.work.id, false);
     } else {
-      this.setState({openBody: true});
       this.props.toggleBody(this.props.work.id, true);
     }
   }
@@ -47,7 +44,7 @@ export default class WorkContainer extends React.Component {
       title: event.target.value,
       inputCount: count
     });
-    setTimeout(this.waitLastInput, 2000, count);
+    setTimeout(this.waitLastInput, 1000, count);
   }
 
   modBody (event) {
@@ -56,7 +53,7 @@ export default class WorkContainer extends React.Component {
       body: event.target.value,
       inputCount: count
     });
-    setTimeout(this.waitLastInput, 2000, count);
+    setTimeout(this.waitLastInput, 1000, count);
   }
 
   waitLastInput (count) {
@@ -80,7 +77,7 @@ export default class WorkContainer extends React.Component {
     }).catch(error => {
       console.error('Error: ', error)
     }).then(response => {
-      console.log('Success: ', response);
+      response ? console.log('Success: ', response) : null;
       this.props.onChange(this.props.work.id, this.state.title, this.state.body)
     });
   }
@@ -100,7 +97,7 @@ export default class WorkContainer extends React.Component {
       }).catch(error => {
         console.error('Error: ', error)
       }).then(response => {
-        console.log('Deleted: ', response);
+        response ? console.log('Deleted: ', response) : null;
         this.props.onDelete(this.props.work.id);
       });
     }

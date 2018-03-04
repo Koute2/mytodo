@@ -7,15 +7,15 @@ class WorksController < ApplicationController
    #  end
 
 	def index
-		@works = current_user.works.reverse_order.to_a
-		#この行は動くかどうか怪しい
-		#@categories = Category.where(created_by: nil || current_user.id).to_a
+		@works = current_user.works.reverse_order
+		if @works.empty?
+			create
+		end
 	end
 
 	def create
 		@work = current_user.works.create(title: "", body: "")
-		@works = current_user.works.reverse_order
-		render :index
+		index
 	end
 
 	def update
@@ -30,10 +30,6 @@ class WorksController < ApplicationController
 
 	private
 		def work_params
-			params.require(:work).permit(
-				:title, :body, :user_id, :status,
-				task_attributes: [:user_id, :body, :status],
-				subscribe_attributes: [:user_id, :category_id]
-				)
+			params.require(:work).permit(:title, :body, :user_id, :status)
 		end
 end
