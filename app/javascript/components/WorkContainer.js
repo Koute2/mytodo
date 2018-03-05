@@ -13,8 +13,6 @@ export default class WorkContainer extends React.Component {
     this.toggleBody = this.toggleBody.bind(this);
     this.modTitle = this.modTitle.bind(this);
     this.modBody = this.modBody.bind(this);
-    this.waitLastInput = this.waitLastInput.bind(this);
-    this.submitState = this.submitState.bind(this);
     this.delete = this.delete.bind(this);
   }
 
@@ -39,47 +37,25 @@ export default class WorkContainer extends React.Component {
   }
 
   modTitle (event) {
+    const id = this.props.work.id;
     const count = this.state.inputCount + 1;
+    const newTitle = event.target.value;
+    const body = this.state.body;
     this.setState({
-      title: event.target.value,
       inputCount: count
     });
-    setTimeout(this.waitLastInput, 1000, count);
+    this.props.onChange(id, newTitle, body, count);
   }
 
   modBody (event) {
+    const id = this.props.work.id;
     const count = this.state.inputCount + 1;
+    const title = this.state.title;
+    const newBody = event.target.value;
     this.setState({
-      body: event.target.value,
       inputCount: count
     });
-    setTimeout(this.waitLastInput, 1000, count);
-  }
-
-  waitLastInput (count) {
-    count == this.state.inputCount ? this.submitState() : null;
-  }
-
-  submitState () {
-    const url = this.props.url + '/' + this.props.work.id + '.json';
-    const token = this.props.token;
-    fetch(url, {
-      headers: {
-        'X-CSRF-Token': token,
-        'Content-Type': 'application/json; charset=utf-8'
-      },
-      method: 'PATCH',
-      credentials: 'same-origin',
-      body: JSON.stringify({
-        title: this.state.title,
-        body: this.state.body
-      })
-    }).catch(error => {
-      console.error('Error: ', error)
-    }).then(response => {
-      response ? console.log('Success: ', response) : null;
-      this.props.onChange(this.props.work.id, this.state.title, this.state.body)
-    });
+    this.props.onChange(id, title, newBody, count);
   }
 
   delete () {

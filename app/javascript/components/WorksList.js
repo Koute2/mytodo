@@ -14,6 +14,8 @@ export default class WorksList extends React.Component {
   	this.deleteChild = this.deleteChild.bind(this);
   	this.modChild = this.modChild.bind(this);
   	this.toggleBody = this.toggleBody.bind(this);
+  	this.waitLastInput = this.waitLastInput.bind(this);
+  	this.submitChild = this.submitChild.bind(this);
   }
 
   toggleBody (id, toggle) {
@@ -30,17 +32,45 @@ export default class WorksList extends React.Component {
   	});
   }
 
-  modChild (id, newTitle, newBody) {
+  modChild (id, newTitle, newBody, count) {
   	let newWorks = this.state.works;
   	newWorks.findIndex(work => {
   		if (work.id === id) {
   			work.title = newTitle;
   			work.body = newBody;
+  			work.inputCount = count;
   		}
   	});
   	this.setState({
   		works: newWorks
   	});
+  	setTimeout(this.waitLastInput, 3000, id, count);
+  }
+
+  waitLastInput (id, count) {
+  	const work = this.state.works.find(work => work.id === id);
+  	work.inputCount === count ? this.submitChild(id, work) : null;
+  }
+
+  submitChild (id, work) {
+  	const url = this.props.url + '/' + id + '.json';
+    const token = this.props.token;
+    fetch(url, {
+      headers: {
+        'X-CSRF-Token': token,
+        'Content-Type': 'application/json; charset=utf-8'
+      },
+      method: 'PATCH',
+      credentials: 'same-origin',
+      body: JSON.stringify({
+        title: work.title,
+        body: work.body
+      })
+    }).catch(error => {
+      console.error('Error: ', error)
+    }).then(response => {
+      response ? console.log('Success: ', response) : null;
+    });
   }
 
   deleteChild (id) {
