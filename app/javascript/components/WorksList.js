@@ -17,14 +17,8 @@ export default class WorksList extends React.Component {
   }
 
   toggleBody (id, toggle) {
-  	const newWorks = this.state.works.map((work, i) => {
-  		if (work.id === id) {
-  			work.openBody = toggle;
-  			return work;
-  		} else {
-  			return work;
-  		}
-  	});
+  	let newWorks = this.state.works;
+  	newWorks.findIndex(work => work.id === id ? work.openBody = toggle : null);
   	this.setState({
   		works: newWorks
   	});
@@ -37,22 +31,21 @@ export default class WorksList extends React.Component {
   }
 
   modChild (id, newTitle, newBody) {
-  	const newWorks = this.state.works.map((work, i) => {
+  	let newWorks = this.state.works;
+  	newWorks.findIndex(work => {
   		if (work.id === id) {
   			work.title = newTitle;
   			work.body = newBody;
-  			return work;
-  		} else {
-  			return work;
   		}
-  	})
+  	});
   	this.setState({
   		works: newWorks
   	});
   }
 
   deleteChild (id) {
-  	const newWorks = this.state.works.filter(work => work.id !== id);
+  	let newWorks = this.state.works;
+  	newWorks.splice(newWorks.findIndex(work => work.id === id), 1);
   	this.setState({
   		works: newWorks
   	});
