@@ -19,7 +19,7 @@ export default class WorkContainer extends React.Component {
   }
 
   componentWillMount () {
-    this.props.work.openBody || this.state.title == "" ? this.setState({openBody: true}) : null;
+    this.props.work.openBody || this.state.title == "" ? this.props.toggleBody(this.props.work.id, true) : null;
   }
 
   componentWillReceiveProps (nextProps) {
@@ -98,7 +98,7 @@ export default class WorkContainer extends React.Component {
         console.error('Error: ', error)
       }).then(response => {
         response ? console.log('Deleted: ', response) : null;
-        this.props.onDelete(this.props.work.id);
+        response ? this.props.onDelete(this.props.work.id) : null;
       });
     }
   }

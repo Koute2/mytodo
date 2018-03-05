@@ -12,15 +12,6 @@
 
 ActiveRecord::Schema.define(version: 20180224092811) do
 
-  create_table "tasks", force: :cascade do |t|
-    t.integer "work_id"
-    t.string "body"
-    t.integer "status", default: 0
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["work_id"], name: "index_tasks_on_work_id"
-  end
-
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -40,9 +31,9 @@ ActiveRecord::Schema.define(version: 20180224092811) do
 
   create_table "works", force: :cascade do |t|
     t.integer "user_id"
-    t.string "title"
-    t.text "body"
-    t.integer "status", default: 0
+    t.string "title", default: ""
+    t.text "body", default: ""
+    t.integer "is_done", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_works_on_user_id"
