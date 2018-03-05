@@ -13,7 +13,7 @@ export default class WorkContainer extends React.Component {
     this.toggleBody = this.toggleBody.bind(this);
     this.modTitle = this.modTitle.bind(this);
     this.modBody = this.modBody.bind(this);
-    this.delete = this.delete.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
   }
 
   componentWillMount () {
@@ -21,19 +21,23 @@ export default class WorkContainer extends React.Component {
   }
 
   componentWillReceiveProps (nextProps) {
-    this.setState({
-      title: nextProps.work.title,
-      body: nextProps.work.body
-    });
-    nextProps.work.openBody || nextProps.work.title == "" ? this.setState({openBody: true}) : this.setState({openBody: false});
+    if (nextProps.work.openBody || this.state.title == "") {
+      this.setState({
+        title: nextProps.work.title,
+        body: nextProps.work.body,
+        openBody: true
+      });
+    } else {
+      this.setState({
+        title: nextProps.work.title,
+        body: nextProps.work.body,
+        openBody: false
+      });
+    }
   }
 
   toggleBody () {
-    if (this.state.openBody && this.state.title != "") {
-      this.props.toggleBody(this.props.work.id, false);
-    } else {
-      this.props.toggleBody(this.props.work.id, true);
-    }
+    this.state.openBody && this.state.title != "" ? this.props.toggleBody(this.props.work.id, false) : this.props.toggleBody(this.props.work.id, true);
   }
 
   modTitle (event) {
@@ -58,25 +62,8 @@ export default class WorkContainer extends React.Component {
     this.props.onChange(id, title, newBody, count);
   }
 
-  delete () {
-    if (confirm("削除しますか？")) {
-      console.log('start deleting');
-      const url = this.props.url + '/' + this.props.work.id + '.json';
-      const token = this.props.token;
-      fetch(url, {
-        headers: {
-          'X-CSRF-Token': token,
-          'Content-Type': 'application/json; charset=utf-8'
-        },
-        method: 'DELETE',
-        credentials: 'same-origin'
-      }).catch(error => {
-        console.error('Error: ', error)
-      }).then(response => {
-        response ? console.log('Deleted: ', response) : null;
-        response ? this.props.onDelete(this.props.work.id) : null;
-      });
-    }
+  handleDelete () {
+    confirm("削除しますか？") ? this.props.onDelete(this.props.work.id) : null;
   }
 
   render () {
@@ -85,7 +72,7 @@ export default class WorkContainer extends React.Component {
     } else {
       return (
         <div className="WorkContainer">
-          <div className="flex"><input type="text" onChange={this.modTitle} value={this.state.title} placeholder="work" /><i className="material-icons deleteIcon" onClick={this.delete}>delete_sweep</i></div>
+          <div className="flex"><input type="text" onChange={this.modTitle} value={this.state.title} placeholder="work" /><i className="material-icons deleteIcon" onClick={this.handleDelete}>delete_sweep</i></div>
           <div className="bar" />
           <div className="flex"><textarea type="text" rows="6" onChange={this.modBody} value={this.state.body} placeholder="event_note" /></div>
           <div onClick={this.toggleBody} className="closeBar animBar"><i className="material-icons closeBody">expand_less</i></div>

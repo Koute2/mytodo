@@ -22,12 +22,12 @@ class WorksController < ApplicationController
 	end
 
 	def update
-		@work = Work.find(params[:id])
+		@work = current_user.works.find(params[:id])
 		@work.update(work_params)
 	end
 
 	def destroy
-		work = Work.find(params[:id])
+		work = current_user.works.find(params[:id])
 		work.destroy
 	end
 
