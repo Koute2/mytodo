@@ -17,27 +17,21 @@ export default class WorkContainer extends React.Component {
   }
 
   componentWillMount () {
-    this.props.work.openBody || this.state.title == "" ? this.props.toggleBody(this.props.work.id, true) : null;
+    const id = this.props.work.id;
+    this.props.work.openBody || this.state.title == "" ? this.props.toggleBody(id, true) : null;
   }
 
   componentWillReceiveProps (nextProps) {
-    if (nextProps.work.openBody || this.state.title == "") {
-      this.setState({
-        title: nextProps.work.title,
-        body: nextProps.work.body,
-        openBody: true
-      });
-    } else {
-      this.setState({
-        title: nextProps.work.title,
-        body: nextProps.work.body,
-        openBody: false
-      });
-    }
+    this.setState({
+      title: nextProps.work.title,
+      body: nextProps.work.body,
+      openBody: nextProps.work.openBody
+    });
   }
 
   toggleBody () {
-    this.state.openBody && this.state.title != "" ? this.props.toggleBody(this.props.work.id, false) : this.props.toggleBody(this.props.work.id, true);
+    const id = this.props.work.id;
+    this.state.openBody && this.state.title != "" ? this.props.toggleBody(id, false) : this.props.toggleBody(id, true);
   }
 
   modTitle (event) {
@@ -67,9 +61,7 @@ export default class WorkContainer extends React.Component {
   }
 
   render () {
-    if (this.state.openBody == false) {
-      return <div onClick={this.toggleBody} className="WorkContainer flex animBar"><span className="flexContent">{this.state.title}</span><i className="material-icons openBody">expand_more</i></div>;
-    } else {
+    if (this.state.openBody) {
       return (
         <div className="WorkContainer">
           <div className="flex"><input type="text" onChange={this.modTitle} value={this.state.title} placeholder="work" /><i className="material-icons deleteIcon" onClick={this.handleDelete}>delete_sweep</i></div>
@@ -78,6 +70,8 @@ export default class WorkContainer extends React.Component {
           <div onClick={this.toggleBody} className="closeBar animBar"><i className="material-icons closeBody">expand_less</i></div>
         </div>
       );
+    } else {
+      return <div onClick={this.toggleBody} className="WorkContainer flex animBar"><span className="flexContent">{this.state.title}</span><i className="material-icons openBody">expand_more</i></div>;
     }
   }
 }
