@@ -64,7 +64,7 @@ export default class WorkContainer extends React.Component {
     if (this.state.openBody) {
       return (
         <div className="WorkContainer">
-          <div className="flex"><input type="text" onChange={this.modTitle} value={this.state.title} placeholder="work" /><i className="material-icons deleteIcon" onClick={this.handleDelete}>delete_sweep</i></div>
+          <div className="flex"><input type="text" onChange={this.modTitle} value={this.state.title} placeholder="mode_edit" /><i className="material-icons deleteIcon" onClick={this.handleDelete}>delete_sweep</i></div>
           <div className="bar" />
           <div className="flex"><textarea type="text" rows="6" onChange={this.modBody} value={this.state.body} placeholder="event_note" /></div>
           <div onClick={this.toggleBody} className="closeBar animBar"><i className="material-icons closeBody">expand_less</i></div>

@@ -8,7 +8,8 @@ export default class WorksList extends React.Component {
   	super(props);
   	this.state = {
   		works: this.props.works,
-  		filter: ""
+  		filter: "",
+  		openMenu: false
   	};
   	this.changeFilter = this.changeFilter.bind(this);
   	this.deleteChild = this.deleteChild.bind(this);
@@ -16,6 +17,8 @@ export default class WorksList extends React.Component {
   	this.toggleBody = this.toggleBody.bind(this);
   	this.waitLastInput = this.waitLastInput.bind(this);
   	this.submitChild = this.submitChild.bind(this);
+  	this.toggleMenu = this.toggleMenu.bind(this);
+  	this.newChild = this.newChild.bind(this);
   }
 
   toggleBody (id, toggle) {
@@ -52,28 +55,31 @@ export default class WorksList extends React.Component {
   	work.inputCount === count ? this.submitChild(id, title, body) : null;
   }
 
-  submitChild (id, title, body) {
+  async submitChild (id, title, body) {
   	const url = this.props.url + '/' + id + '.json';
     const token = this.props.token;
-    fetch(url, {
-      headers: {
-        'X-CSRF-Token': token,
-        'Content-Type': 'application/json; charset=utf-8'
-      },
-      method: 'PATCH',
-      credentials: 'same-origin',
-      body: JSON.stringify({
-        title: title,
-        body: body
-      })
-    }).catch(error => {
-      console.error('Error: ', error)
-    }).then(response => {
-      response ? console.log('Success: ', response) : null;
-    });
+    try {
+    	let response = await fetch(url, {
+	      headers: {
+	        'X-CSRF-Token': token,
+	        'Content-Type': 'application/json; charset=utf-8'
+	      },
+	      method: 'PATCH',
+	      credentials: 'same-origin',
+	      body: JSON.stringify({
+	        title: title,
+	        body: body
+	      })
+	    });
+      if (response.ok) {
+      	console.log('Updated: ', response);
+      }
+    } catch (error) {
+    	console.log(error);
+    }
   }
 
-  deleteChild (id) {
+  async deleteChild (id) {
   	let newWorks = this.state.works;
   	newWorks.splice(newWorks.findIndex(work => work.id === id), 1);
   	this.setState({
@@ -81,26 +87,64 @@ export default class WorksList extends React.Component {
   	});
     const url = this.props.url + '/' + id + '.json';
     const token = this.props.token;
-    fetch(url, {
-      headers: {
-        'X-CSRF-Token': token,
-        'Content-Type': 'application/json; charset=utf-8'
-      },
-      method: 'DELETE',
-      credentials: 'same-origin'
-    }).catch(error => {
-      console.error('Error: ', error)
-    }).then(response => {
-      response ? console.log('Deleted: ', response) : null;
-    });
+    try {
+    	let response = await fetch(url, {
+	      headers: {
+	        'X-CSRF-Token': token,
+	        'Content-Type': 'application/json; charset=utf-8'
+	      },
+	      method: 'DELETE',
+	      credentials: 'same-origin'
+	    });
+	    if (response.ok) {
+	    	console.log('Deleted: ', response);
+	    }
+    } catch (error) {
+    	console.log(error);
+    }
+  }
+
+  async newChild () {
+  	const url = this.props.url + '.json';
+  	const token = this.props.token;
+		try {
+			let response = await fetch(url, {
+				headers: {
+	        'X-CSRF-Token': token,
+	        'Content-Type': 'application/json; charset=utf-8'
+				},
+				method: 'POST',
+				credentials: 'same-origin'
+			});
+			if (response.ok) {
+				console.log('Posted: ', response);
+				let jsonResponse = await response.json();
+				jsonResponse.openBody = true;
+				let newWorks = this.state.works;
+				newWorks.unshift(jsonResponse);
+				this.setState({
+					works: newWorks
+				});
+			}
+		} catch (error) {
+			console.log(error);
+  	}
+  }
+
+  toggleMenu () {
+  	this.state.openMenu ? this.setState({openMenu: false}) : this.setState({openMenu: true});
+  	console.log(this.state.openMenu);
   }
 
   render () {
   	const works = this.state.filter ? this.state.works.filter(work => work.title.includes(this.state.filter) || work.body.includes(this.state.filter)) : this.state.works;
   	return (
      	<React.Fragment>
-				<div className="MobileMenu"><MobileMenu value={this.state.filter} onChange={this.changeFilter} /></div>
-       	{ works.map((work, i) => <WorkContainer work={work} key={i} onChange={this.modChild} onDelete={this.deleteChild} toggleBody={this.toggleBody} />) }
+     		<div className="WorkList">
+					<div className="MobileMenu flex"><MobileMenu onChange={this.changeFilter} onClick={this.toggleMenu} /></div>
+       		{ works.map((work, i) => <WorkContainer work={work} key={i} onChange={this.modChild} onDelete={this.deleteChild} toggleBody={this.toggleBody} />) }
+       		<a className="addButton material-icons" onClick={this.newChild}>add_circle</a>
+       	</div>
   		</React.Fragment>
    );
   }

@@ -16,19 +16,24 @@ class WorksController < ApplicationController
 	end
 
 	def create
-		@work = current_user.works.create
-		@works = current_user.works.reverse_order
-		render :index
+		work = current_user.works.new
+		if work.save
+			render json: work
+		else
+			head :no_content
+		end
 	end
 
 	def update
 		@work = current_user.works.find(params[:id])
 		@work.update(work_params)
+		head :no_content
 	end
 
 	def destroy
 		work = current_user.works.find(params[:id])
 		work.destroy
+		head :no_content
 	end
 
 	private

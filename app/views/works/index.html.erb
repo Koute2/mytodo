@@ -1,4 +1,3 @@
-<div class="WorksList">
+<div class="container">
 	<%= react_component("WorksList", { works: @works, url: works_path, token: form_authenticity_token }) %>
-	<%= link_to "add_circle", works_path, method: :post, class: "addButton material-icons" %>
 </div>

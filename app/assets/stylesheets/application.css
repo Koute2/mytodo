@@ -51,69 +51,7 @@ input:focus, select:focus, textarea:focus, button:focus {
 	height: 100vh;
 	display: flex;
 	flex-direction: column;
-}
-
-.loader-container {
-	position: fixed;
-	width: 100vw;
-	height: 100vh;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	background-color: rgba(0,0,0,0.20);
-}
-
-.loader-wrapper {
-	padding: 3em;
-	background-color: #FFFFFF;
-	box-shadow: 0 4px 4px rgba(0,0,0,0.20);
-}
-
-.loaded .loader-wrapper {
-	visibility: hidden;
-}
-
-.loader {
-	position: relative;
-	border: 5px solid transparent;
-	border-top: 5px solid #00675b;
-	border-radius: 50%;
-	width: 10em;
-	height: 10em;
-	animation: spin 3s cubic-bezier(0.46, 0.03, 0.52, 0.96) infinite;
-}
-
-.loader::before {
-	content: "";
-	display: inline-block;
-	position: absolute;
-	top: 5px;
-	bottom: 5px;
-	left: 5px;
-	right: 5px;
-	border: 5px solid transparent;
-	border-top: 5px solid #009688;
-	border-radius: 50%;
-	animation: spin 1.5s cubic-bezier(0.46, 0.03, 0.52, 0.96) infinite;
-}
-
-.loader::after {
-	content: "";
-	display: inline-block;
-	position: absolute;
-	top: 15px;
-	bottom: 15px;
-	left: 15px;
-	right: 15px;
-	border: 5px solid transparent;
-	border-top: 5px solid #52c7b8;
-	border-radius: 50%;
-	animation: spin 2s cubic-bezier(0.46, 0.03, 0.52, 0.96) infinite;
-}
-
-@keyframes spin {
-	0% { transform: rotate(0deg); }
-	100% { transform: rotate(360deg); }
+	overflow: auto;
 }
 
 .WorksList {
@@ -124,13 +62,22 @@ input:focus, select:focus, textarea:focus, button:focus {
 .MobileMenu {
 	font-size: 1.5em;
 	background-color: #009688;
-	display: flex;
 	box-shadow: 0 4px 4px rgba(0, 0, 0, 0.20);
 	padding: 0.43em;
 }
 
+.MobileMenu input {
+	border-radius: 3px;
+	color: #424242;
+}
+
+.MobileMenu input::placeholder {
+	color: #E0E0E0;
+}
+
 .MobileMenu input:focus {
 	background-color: #52c7b8;
+	box-shadow: inset 0 1px 1px rgba(0,0,0,0.20);
 }
 
 .WorkContainer {
@@ -146,6 +93,10 @@ input:focus, select:focus, textarea:focus, button:focus {
 }
 
 .animBar:hover {
+	background-color: #F5F5F5;
+}
+
+.animBar:active {
 	background-color: #F5F5F5;
 }
 
@@ -167,7 +118,7 @@ input:focus, select:focus, textarea:focus, button:focus {
 .addButton {
 	color: #009688;
 	text-shadow: 0 4px 4px rgba(0,0,0,0.20);
-	position: absolute;
+	position: fixed;
 	bottom: 0;
 	right: 0;
 	font-size: 4em;
@@ -196,3 +147,35 @@ input:focus, select:focus, textarea:focus, button:focus {
 	color: #E0E0E0;
 }
 
+.MenuButton {
+	color: #BDBDBD;
+	border-radius: 3px;
+	margin-left: 0.29em;
+}
+
+.MenuButton:active {
+	box-shadow: inset 0 1px 3px rgba(0,0,0,0.20);
+	background-color: #52c7b8;
+}
+
+.clearButton {
+	color: #BDBDBD;
+	border-radius: 3px;
+	margin-left: 0.29em;
+	transition: all 0.25s ease-out;
+}
+
+.clearButton:active {
+	color: #E0E0E0;
+}
+
+.SearchButton {
+	color: #BDBDBD;
+	border-radius: 3px;
+	margin-right: 0.29em;
+	transition: all 0.25s ease-out;
+}
+
+.SearchButton:active {
+	color: #E0E0E0;
+}
