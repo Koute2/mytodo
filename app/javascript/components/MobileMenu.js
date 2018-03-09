@@ -39,24 +39,28 @@ export default class MobileMenu extends React.Component {
   render () {
   	if (this.state.openSearch) {
   		return (
-	      <React.Fragment>
-	      	<input autoFocus type="text" onChange={this.handleInput} value={this.state.filter} placeholder="search" />
-	      	<span className="material-icons clearButton" onClick={this.handleClear}>cancel</span>
-	      </React.Fragment>
+	      <div className="MobileMenu">
+          <div className="flex">
+	      	  <input autoFocus type="text" onChange={this.handleInput} value={this.state.filter} placeholder="search" />
+	      	  <div className="material-icons clearButton" onClick={this.handleClear}>cancel</div>
+          </div>
+	      </div>
   			);
   	} else {
 			return (
-	      <React.Fragment>
-	      	<span className="material-icons SearchButton" onClick={this.openSearch}>search</span>
-	      	<div className="flexContent"></div>
-	      	<span className="material-icons MenuButton" onClick={this.handleClick}>menu</span>
-	      </React.Fragment>
+	      <div className="MobileMenu">
+          <div className="flex">
+  	      	<div className="material-icons SearchButton" onClick={this.openSearch}>search</div>
+  	      	<div className="flexContent" onClick={this.openSearch}></div>
+  	      	<div className="material-icons MenuButton" onClick={this.handleClick}>menu</div>
+          </div>
+	      </div>
   		);
   	}
-
   }
 }
 
 MobileMenu.propTypes = {
-  value: PropTypes.string
+  onClick: PropTypes.func,
+  onChange: PropTypes.func
 };

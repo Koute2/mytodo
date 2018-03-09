@@ -15,12 +15,16 @@
  *= require_self
  */
 
+body {
+	font-family: 'Open Sans', sans-serif;
+}
+
 textarea, input {
 	background-color: transparent;
 	border: 0;
 	padding: 0;
 	flex: auto;
-	transition: background-color 0.15s ease-out;
+	transition: all 0.15s ease-out;
 	border-radius: 0.43em;
 }
 
@@ -49,21 +53,22 @@ input:focus, select:focus, textarea:focus, button:focus {
 	background: linear-gradient(to bottom right, #607D8B 10%, #EEEEEE 90%);
 	width: 100vw;
 	height: 100vh;
-	display: flex;
-	flex-direction: column;
-	overflow: auto;
 }
 
-.WorksList {
-	overflow: auto;
-	flex: auto;
+.WorkList {
+	display: flex;
+	flex-direction: column;
+	height: 100vh;
 }
+
+
 
 .MobileMenu {
 	font-size: 1.5em;
 	background-color: #009688;
 	box-shadow: 0 4px 4px rgba(0, 0, 0, 0.20);
 	padding: 0.43em;
+	z-index: 10;
 }
 
 .MobileMenu input {
@@ -80,24 +85,17 @@ input:focus, select:focus, textarea:focus, button:focus {
 	box-shadow: inset 0 1px 1px rgba(0,0,0,0.20);
 }
 
+.WorkListBody {
+	overflow: auto;
+	flex: auto;
+}
+
 .WorkContainer {
 	background-color: #FFFFFF;
 	margin: 0.29em;
 	border-radius: 0.43em;
 	padding: 0.43em;
 	box-shadow: 1px 1px rgba(0,0,0,0.20);
-}
-
-.animBar {
-	transition: all 0.15s ease-out;
-}
-
-.animBar:hover {
-	background-color: #F5F5F5;
-}
-
-.animBar:active {
-	background-color: #F5F5F5;
 }
 
 .flex {
@@ -118,10 +116,11 @@ input:focus, select:focus, textarea:focus, button:focus {
 .addButton {
 	color: #009688;
 	text-shadow: 0 4px 4px rgba(0,0,0,0.20);
-	position: fixed;
+	position: absolute;
 	bottom: 0;
 	right: 0;
 	font-size: 4em;
+	z-index: 10;
 }
 
 .closeBar {
@@ -135,11 +134,6 @@ input:focus, select:focus, textarea:focus, button:focus {
 }
 
 .deleteIcon {
-	color: #BDBDBD;
-	transition: all 0.15s ease-out;
-}
-
-.deleteIcon:hover {
 	color: #DD2C00;
 }
 
@@ -162,7 +156,7 @@ input:focus, select:focus, textarea:focus, button:focus {
 	color: #BDBDBD;
 	border-radius: 3px;
 	margin-left: 0.29em;
-	transition: all 0.25s ease-out;
+	transition: all 0.15s ease-out;
 }
 
 .clearButton:active {
@@ -173,9 +167,225 @@ input:focus, select:focus, textarea:focus, button:focus {
 	color: #BDBDBD;
 	border-radius: 3px;
 	margin-right: 0.29em;
-	transition: all 0.25s ease-out;
 }
 
 .SearchButton:active {
 	color: #E0E0E0;
+}
+
+.menuWrapper {
+	position: absolute;
+	z-index: 20;
+	display: none;
+	width: 100vw;
+	height: 100vh;
+	align-items: center;
+	justify-content: center;
+	background-color: rgba(0,0,0,0.30);
+	backdrop-filter: blur(3px);
+	-webkit-backdrop-filter: blur(3px);
+	transition: all 0.5s ease-out;
+}
+
+.showMobile {
+	display: flex;
+}
+
+.globalMenu {
+	width: 30vh;
+	height: 30vh;
+	background-color: #FFFF;
+	display: flex;
+	flex-direction: column;
+	border-radius: 1.72em;
+	box-shadow: 4px 4px 4px rgba(0,0,0,0.20);
+	font-size: 1.5rem;
+}
+
+.menuBar {
+	flex: auto;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.title {
+	display: none;
+}
+
+.menuBar:active {
+	box-shadow: inset 0 0 4px 1px rgba(0,0,0,0.40);
+}
+
+.menuBar:nth-child(3):active {
+	box-shadow: inset 0 -4px 4px rgba(0,0,0,0.20);
+	border-radius: 1.72em 1.72em 0 0;
+}
+
+.menuBar:last-child:active {
+	box-shadow: inset 0 4px 4px rgba(0,0,0,0.20);
+	border-radius: 0 0 1.72em 1.72em;
+}
+
+.globalMenu .flexContent {
+	display: none;
+}
+
+.globalMenu .flex {
+	display: none;
+}
+
+@media (max-width: 900px) {
+
+}
+
+@media (min-width: 900px) {
+	.container {
+		display: grid;
+		grid-template-columns: 1fr 2.5fr;
+		background: linear-gradient(to bottom right, #FAFAFA, #FF5722);
+		color: #616161;
+	}
+
+	textarea, input {
+		color: #616161;
+	}
+
+	.WorkList {
+		grid-column: 2;
+	}
+
+	.WorkContainer {
+		background-color: rgba(255,255,255,0.50);
+	}
+
+	.MobileMenu {
+		display: none;
+	}
+
+	.animBar {
+	transition: all 0.15s ease-out;
+	}
+
+	.animBar:hover {
+	background-color: rgba(255,255,255,0.80);
+	}
+
+	.animBar:active {
+	background-color: rgba(255,255,255,0.80);
+	}
+
+	.closeBody, .openBody {
+		color: #757575;
+	}
+
+	.addButton {
+		display: none;
+	}
+
+	.deleteIcon {
+		color: #BDBDBD;
+		transition: all 0.15s ease-out;
+	}
+
+	.deleteIcon:hover {
+		color: #DD2C00;
+	}
+
+	.menuWrapper {
+		grid-column: 1;
+		position: static;
+		width: auto;
+		height: auto;
+		display: block;
+		background-color: transparent;
+		backdrop-filter: none;
+		-webkit-backdrop-filter: none;
+	}
+
+	.globalMenu {
+		width: auto;
+		background-color: rgba(255,255,255,0.20);
+		height: 100vh;
+		border-radius: 0;
+	}
+
+	.globalMenu div {
+		flex: none;
+	}
+
+	.menuBar {
+		box-shadow: 0 1px 0 rgba(0,0,0,0.20);
+		padding: 0.43em 0;
+	}
+
+	.title {
+		display: flex;
+		font-size: 3rem;
+		align-items: center;
+		justify-content: center;
+		box-shadow: 0 1px 0 rgba(0,0,0,0.20);
+		padding: 0.43em 0;
+		font-weight: bold;
+		text-shadow: 1px 1px 1px rgba(0,0,0,0.20);
+	}
+
+	.menuBar:last-child {
+		border: none;
+		font-size: 1rem;
+	}
+
+	.menuBar:active {
+		box-shadow: 0 1px 0 rgba(0,0,0,0.20);
+	}
+
+	.menuBar:nth-child(3):active {
+		box-shadow: 0 1px 0 rgba(0,0,0,0.20);
+		border-radius: 0;
+	}
+
+	.menuBar:last-child:active {
+		box-shadow: none;
+		border-radius: 0;
+	}
+
+	.menuBar:hover {
+		background-color: rgba(0,0,0,0.10);
+	}
+
+	.globalMenu {
+		box-shadow: 4px 0 4px rgba(0,0,0,0.20);
+	}
+
+	.globalMenu .flex {
+		display: flex;
+	}
+
+	.globalMenu .flexContent {
+		display: block;
+		flex: auto;
+		box-shadow: 0 1px 0 rgba(0,0,0,0.20);
+	}
+
+	.globalMenu .flex {
+		box-shadow: 0 1px 0 rgba(0,0,0,0.20);
+	}
+
+	.globalMenu input {
+		border-radius: 0;
+	}
+
+	.globalMenu input:hover {
+		background-color: rgba(0,0,0,0.10);
+	}
+
+	.globalMenu input:focus {
+		background-color: rgba(0,0,0,0.10);
+	}
+
+	.clearButton {
+		margin: 0;
+		border-radius: 0;
+		background-color: rgba(0,0,0,0.10);
+	}
 }

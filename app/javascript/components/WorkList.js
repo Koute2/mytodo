@@ -2,8 +2,9 @@ import React from "react"
 import PropTypes from "prop-types"
 import WorkContainer from "./WorkContainer"
 import MobileMenu from "./MobileMenu"
+import Menu from "./Menu"
 
-export default class WorksList extends React.Component {
+export default class WorkList extends React.Component {
   constructor (props) {
   	super(props);
   	this.state = {
@@ -24,15 +25,11 @@ export default class WorksList extends React.Component {
   toggleBody (id, toggle) {
   	let newWorks = this.state.works;
   	newWorks.findIndex(work => work.id === id ? work.openBody = toggle : null);
-  	this.setState({
-  		works: newWorks
-  	});
+  	this.setState({works: newWorks});
   }
 
   changeFilter (newFilter) {
-  	this.setState({
-  		filter: newFilter
-  	});
+  	this.setState({filter: newFilter});
   }
 
   modChild (id, title, body, count) {
@@ -44,9 +41,7 @@ export default class WorksList extends React.Component {
   			work.inputCount = count;
   		}
   	});
-  	this.setState({
-  		works: newWorks
-  	});
+  	this.setState({works: newWorks});
   	setTimeout(this.waitLastInput, 3000, id, title, body, count);
   }
 
@@ -74,7 +69,8 @@ export default class WorksList extends React.Component {
       if (response.ok) {
       	console.log('Updated: ', response);
       }
-    } catch (error) {
+    }
+    catch (error) {
     	console.log(error);
     }
   }
@@ -99,7 +95,8 @@ export default class WorksList extends React.Component {
 	    if (response.ok) {
 	    	console.log('Deleted: ', response);
 	    }
-    } catch (error) {
+    }
+    catch (error) {
     	console.log(error);
     }
   }
@@ -122,30 +119,31 @@ export default class WorksList extends React.Component {
 				jsonResponse.openBody = true;
 				let newWorks = this.state.works;
 				newWorks.unshift(jsonResponse);
-				this.setState({
-					works: newWorks
-				});
+				this.setState({works: newWorks});
 			}
-		} catch (error) {
+		}
+    catch (error) {
 			console.log(error);
   	}
   }
 
   toggleMenu () {
   	this.state.openMenu ? this.setState({openMenu: false}) : this.setState({openMenu: true});
-  	console.log(this.state.openMenu);
   }
 
   render () {
   	const works = this.state.filter ? this.state.works.filter(work => work.title.includes(this.state.filter) || work.body.includes(this.state.filter)) : this.state.works;
-  	return (
-     	<React.Fragment>
-     		<div className="WorkList">
-					<div className="MobileMenu flex"><MobileMenu onChange={this.changeFilter} onClick={this.toggleMenu} /></div>
-       		{ works.map((work, i) => <WorkContainer work={work} key={i} onChange={this.modChild} onDelete={this.deleteChild} toggleBody={this.toggleBody} />) }
-       		<a className="addButton material-icons" onClick={this.newChild}>add_circle</a>
-       	</div>
-  		</React.Fragment>
-   );
+    return (
+      <div className="container">
+        <Menu onChange={this.changeFilter} openMenu={this.state.openMenu} toggleMenu={this.toggleMenu} onClickNew={this.newChild} />
+        <div className="WorkList">
+          <MobileMenu onChange={this.changeFilter} onClick={this.toggleMenu} />
+          <div className="WorkListBody">
+           { works.map((work, i) => <WorkContainer work={work} key={i} onChange={this.modChild} onDelete={this.deleteChild} toggleBody={this.toggleBody} />) }
+          </div>
+          <a className="addButton material-icons" onClick={this.newChild}>add_circle</a>
+        </div>
+      </div>
+    );
   }
 }

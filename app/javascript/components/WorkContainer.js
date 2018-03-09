@@ -39,9 +39,7 @@ export default class WorkContainer extends React.Component {
     const count = this.state.inputCount + 1;
     const newTitle = event.target.value;
     const body = this.state.body;
-    this.setState({
-      inputCount: count
-    });
+    this.setState({inputCount: count});
     this.props.onChange(id, newTitle, body, count);
   }
 
@@ -50,9 +48,7 @@ export default class WorkContainer extends React.Component {
     const count = this.state.inputCount + 1;
     const title = this.state.title;
     const newBody = event.target.value;
-    this.setState({
-      inputCount: count
-    });
+    this.setState({inputCount: count});
     this.props.onChange(id, title, newBody, count);
   }
 
@@ -71,7 +67,15 @@ export default class WorkContainer extends React.Component {
         </div>
       );
     } else {
-      return <div onClick={this.toggleBody} className="WorkContainer flex animBar"><span className="flexContent">{this.state.title}</span><i className="material-icons openBody">expand_more</i></div>;
+      return <div onClick={this.toggleBody} className="WorkContainer flex animBar"><div className="flexContent">{this.state.title}</div><i className="material-icons openBody">expand_more</i></div>;
     }
   }
 }
+
+WorkContainer.propTypes = {
+  work: PropTypes.object,
+  onChange: PropTypes.func,
+  onDelete: PropTypes.func,
+  toggleBody: PropTypes.func
+};
+
