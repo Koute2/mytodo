@@ -4,12 +4,6 @@ import PropTypes from "prop-types"
 export default class WorkContainer extends React.Component {
   constructor (props) {
   	super(props);
-  	this.state = {
-      title: this.props.work.title,
-      body: this.props.work.body,
-  		openBody: false,
-      inputCount: 0
-  	};
     this.toggleBody = this.toggleBody.bind(this);
     this.modTitle = this.modTitle.bind(this);
     this.modBody = this.modBody.bind(this);
@@ -18,37 +12,27 @@ export default class WorkContainer extends React.Component {
 
   componentWillMount () {
     const id = this.props.work.id;
-    this.props.work.openBody || this.state.title == "" ? this.props.toggleBody(id, true) : null;
-  }
-
-  componentWillReceiveProps (nextProps) {
-    this.setState({
-      title: nextProps.work.title,
-      body: nextProps.work.body,
-      openBody: nextProps.work.openBody
-    });
+    this.props.work.openBody || this.props.work.title == "" ? this.props.toggleBody(id, true) : null;
   }
 
   toggleBody () {
     const id = this.props.work.id;
-    this.state.openBody && this.state.title != "" ? this.props.toggleBody(id, false) : this.props.toggleBody(id, true);
+    this.props.work.openBody && this.props.work.title != "" ? this.props.toggleBody(id, false) : this.props.toggleBody(id, true);
   }
 
   modTitle (event) {
     const id = this.props.work.id;
-    const count = this.state.inputCount + 1;
+    const count = this.props.work.inputCount ? this.props.work.inputCount + 1 : 1;
     const newTitle = event.target.value;
-    const body = this.state.body;
-    this.setState({inputCount: count});
+    const body = this.props.work.body;
     this.props.onChange(id, newTitle, body, count);
   }
 
   modBody (event) {
     const id = this.props.work.id;
-    const count = this.state.inputCount + 1;
-    const title = this.state.title;
+    const count = this.props.work.inputCount ? this.props.work.inputCount + 1 : 1;
+    const title = this.props.work.title;
     const newBody = event.target.value;
-    this.setState({inputCount: count});
     this.props.onChange(id, title, newBody, count);
   }
 
@@ -57,17 +41,17 @@ export default class WorkContainer extends React.Component {
   }
 
   render () {
-    if (this.state.openBody) {
+    if (this.props.work.openBody) {
       return (
         <div className="WorkContainer">
-          <div className="flex"><input type="text" onChange={this.modTitle} value={this.state.title} placeholder="mode_edit" /><i className="material-icons deleteIcon" onClick={this.handleDelete}>delete_sweep</i></div>
+          <div className="flex"><input type="text" onChange={this.modTitle} value={this.props.work.title} placeholder="mode_edit" /><i className="material-icons deleteIcon" onClick={this.handleDelete}>delete_sweep</i></div>
           <div className="bar" />
-          <div className="flex"><textarea type="text" rows="6" onChange={this.modBody} value={this.state.body} placeholder="event_note" /></div>
+          <div className="flex"><textarea type="text" rows="6" onChange={this.modBody} value={this.props.work.body} placeholder="event_note" /></div>
           <div onClick={this.toggleBody} className="closeBar animBar"><i className="material-icons closeBody">expand_less</i></div>
         </div>
       );
     } else {
-      return <div onClick={this.toggleBody} className="WorkContainer flex animBar"><div className="flexContent">{this.state.title}</div><i className="material-icons openBody">expand_more</i></div>;
+      return <div onClick={this.toggleBody} className="WorkContainer flex animBar"><div className="flexContent">{this.props.work.title}</div><i className="material-icons openBody">expand_more</i></div>;
     }
   }
 }
