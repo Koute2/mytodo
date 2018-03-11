@@ -3,23 +3,13 @@ import PropTypes from "prop-types"
 export default class Menu extends React.Component {
   constructor (props) {
   	super(props);
-  	this.state = {
-  		filter: ""
-  	}
-  	this.handleClear = this.handleClear.bind(this);
   	this.handleInput = this.handleInput.bind(this);
   	this.handleClickNew = this.handleClickNew.bind(this);
   }
 
   handleInput (event) {
   	const newFilter = event.target.value;
-  	this.setState({filter: newFilter});
   	this.props.onChange(newFilter);
-  }
-
-  handleClear () {
-  	this.setState({filter: ""})
-  	this.props.onChange("");
   }
 
   handleClickNew () {
@@ -35,8 +25,7 @@ export default class Menu extends React.Component {
     				MyToDo
     			</div>
     			<div className="flex">
-    				<input type="text" placeholder="search" value={this.state.filter} onChange={this.handleInput} />
-    				{ this.state.filter ? <div className="material-icons clearButton" onClick={this.handleClear}>cancel</div> : null }
+    				<input type="text" placeholder="search" value={this.props.filter} onChange={this.handleInput} />
     			</div>
     			<div className="menuBar" onClick={this.handleClickNew}>
     				<i className="material-icons">add</i> New
