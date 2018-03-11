@@ -5,7 +5,6 @@ export default class MobileMenu extends React.Component {
   constructor (props) {
   	super(props);
   	this.state = {
-  		filter: "",
   		openSearch: false
   	};
   	this.handleInput = this.handleInput.bind(this);
@@ -22,7 +21,6 @@ export default class MobileMenu extends React.Component {
 
   handleClear () {
   	this.setState({
-  		filter: "",
   		openSearch: false
   	});
   	this.props.onChange("");
@@ -41,7 +39,7 @@ export default class MobileMenu extends React.Component {
   		return (
 	      <div className="MobileMenu">
           <div className="flex">
-	      	  <input autoFocus type="text" onChange={this.handleInput} value={this.state.filter} placeholder="search" />
+	      	  <input autoFocus type="text" onChange={this.handleInput} value={this.props.filter} placeholder="search" />
 	      	  <div className="material-icons clearButton" onClick={this.handleClear}>cancel</div>
           </div>
 	      </div>

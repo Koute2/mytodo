@@ -61,8 +61,6 @@ input:focus, select:focus, textarea:focus, button:focus {
 	height: 100vh;
 }
 
-
-
 .MobileMenu {
 	font-size: 1.5rem;
 	background-color: #009688;
@@ -91,7 +89,6 @@ input:focus, select:focus, textarea:focus, button:focus {
 }
 
 .WorkContainer {
-	background-color: #FFFFFF;
 	margin: 0.29em;
 	border-radius: 0.43em;
 	padding: 0.43em;
@@ -173,73 +170,93 @@ input:focus, select:focus, textarea:focus, button:focus {
 	color: #E0E0E0;
 }
 
-.menuWrapper {
-	position: absolute;
-	z-index: 20;
-	display: none;
-	width: 100vw;
-	height: 100vh;
-	align-items: center;
-	justify-content: center;
-	background-color: rgba(0,0,0,0.30);
-	backdrop-filter: blur(3px);
-	-webkit-backdrop-filter: blur(3px);
-	transition: all 0.5s ease-out;
-}
-
-.showMobile {
-	display: flex;
-}
-
 .globalMenu {
-	width: 30vh;
-	height: 30vh;
-	background-color: #FFFF;
+	background-color: rgb(255,255,255);
 	display: flex;
 	flex-direction: column;
-	border-radius: 1.72em;
 	box-shadow: 4px 4px 4px rgba(0,0,0,0.20);
 	font-size: 1.5rem;
 }
 
 .menuBar {
-	flex: auto;
 	display: flex;
 	align-items: center;
 	justify-content: center;
 }
 
 .title {
-	display: none;
+	font-size: 3rem;
+	align-items: center;
+	justify-content: center;
+	box-shadow: 0 1px 0 rgba(0,0,0,0.20);
+	padding: 0.43em 0;
+	font-weight: bold;
+	text-shadow: 1px 1px 1px rgba(0,0,0,0.20);
 }
 
-.menuBar:active {
-	box-shadow: inset 0 0 4px 1px rgba(0,0,0,0.40);
-}
-
-.menuBar:nth-child(3):active {
-	box-shadow: inset 0 -4px 4px rgba(0,0,0,0.20);
-	border-radius: 1.72em 1.72em 0 0;
-}
-
-.menuBar:last-child:active {
-	box-shadow: inset 0 4px 4px rgba(0,0,0,0.20);
-	border-radius: 0 0 1.72em 1.72em;
-}
-
-.globalMenu .flexContent {
-	display: none;
-}
-
-.globalMenu .flex {
-	display: none;
-}
 
 @media (max-width: 900px) {
+	.WorkContainer {
+		background-color: #FFFFFF;
+	}
+
+	.menuWrapper {
+		position: absolute;
+		z-index: 20;
+		display: none;
+		width: 100vw;
+		height: 100vh;
+		align-items: center;
+		justify-content: center;
+		background-color: rgba(0,0,0,0.30);
+		backdrop-filter: blur(3px);
+		-webkit-backdrop-filter: blur(3px);
+		transition: all 0.5s ease-out;
+	}
+
+	.showMobile {
+		display: flex;
+	}
+
+	.globalMenu {
+		width: 30vh;
+		height: 30vh;
+		border-radius: 1.72em;
+	}
+
+	.globalMenu .flexContent {
+		display: none;
+	}
+
+	.globalMenu .flex {
+		display: none;
+	}
+	.title {
+		display: none;
+	}
+
+	.menuBar {
+		flex: auto;
+	}
+
+	.menuBar:active {
+		box-shadow: inset 0 0 4px 1px rgba(0,0,0,0.40);
+	}
+
+	.menuBar:nth-child(3):active {
+		box-shadow: inset 0 -4px 4px rgba(0,0,0,0.20);
+		border-radius: 1.72em 1.72em 0 0;
+	}
+
+	.menuBar:last-child:active {
+		box-shadow: inset 0 4px 4px rgba(0,0,0,0.20);
+		border-radius: 0 0 1.72em 1.72em;
+	}
+
 
 }
 
-@media (min-width: 900px) {
+@media (min-width: 901px) {
 	.container {
 		display: grid;
 		grid-template-columns: 1fr 2.5fr;
@@ -264,15 +281,15 @@ input:focus, select:focus, textarea:focus, button:focus {
 	}
 
 	.animBar {
-	transition: all 0.15s ease-out;
+		transition: all 0.15s ease-out;
 	}
 
 	.animBar:hover {
-	background-color: rgba(255,255,255,0.80);
+		background-color: rgba(255,255,255,0.80);
 	}
 
 	.animBar:active {
-	background-color: rgba(255,255,255,0.80);
+		background-color: rgba(255,255,255,0.80);
 	}
 
 	.closeBody, .openBody {
@@ -294,24 +311,11 @@ input:focus, select:focus, textarea:focus, button:focus {
 
 	.menuWrapper {
 		grid-column: 1;
-		position: static;
-		width: auto;
-		height: auto;
-		display: block;
-		background-color: transparent;
-		backdrop-filter: none;
-		-webkit-backdrop-filter: none;
 	}
 
 	.globalMenu {
-		width: auto;
 		background-color: rgba(255,255,255,0.20);
 		height: 100vh;
-		border-radius: 0;
-	}
-
-	.globalMenu div {
-		flex: none;
 	}
 
 	.menuBar {
@@ -321,32 +325,11 @@ input:focus, select:focus, textarea:focus, button:focus {
 
 	.title {
 		display: flex;
-		font-size: 3rem;
-		align-items: center;
-		justify-content: center;
-		box-shadow: 0 1px 0 rgba(0,0,0,0.20);
-		padding: 0.43em 0;
-		font-weight: bold;
-		text-shadow: 1px 1px 1px rgba(0,0,0,0.20);
 	}
 
 	.menuBar:last-child {
 		border: none;
 		font-size: 1rem;
-	}
-
-	.menuBar:active {
-		box-shadow: 0 1px 0 rgba(0,0,0,0.20);
-	}
-
-	.menuBar:nth-child(3):active {
-		box-shadow: 0 1px 0 rgba(0,0,0,0.20);
-		border-radius: 0;
-	}
-
-	.menuBar:last-child:active {
-		box-shadow: none;
-		border-radius: 0;
 	}
 
 	.menuBar:hover {
@@ -357,13 +340,7 @@ input:focus, select:focus, textarea:focus, button:focus {
 		box-shadow: 4px 0 4px rgba(0,0,0,0.20);
 	}
 
-	.globalMenu .flex {
-		display: flex;
-	}
-
 	.globalMenu .flexContent {
-		display: block;
-		flex: auto;
 		box-shadow: 0 1px 0 rgba(0,0,0,0.20);
 	}
 
@@ -383,9 +360,4 @@ input:focus, select:focus, textarea:focus, button:focus {
 		background-color: rgba(0,0,0,0.10);
 	}
 
-	.clearButton {
-		margin: 0;
-		border-radius: 0;
-		background-color: rgba(0,0,0,0.10);
-	}
 }
