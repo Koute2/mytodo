@@ -27,11 +27,14 @@ export default class Menu extends React.Component {
     			<div className="flex">
     				<input type="text" placeholder="search" value={this.props.filter} onChange={this.handleInput} />
     			</div>
-    			<div className="menuBar" onClick={this.handleClickNew}>
+    			<div className="menuNew" onClick={this.handleClickNew}>
     				<i className="material-icons">add</i> New
     			</div>
     			<div className="flexContent" />
-    			<div className="menuBar">
+    			<div className="menuChangePass">
+    				<i className="material-icons">lightbulb_outline</i> Change Password
+    			</div>
+    			<div className="menuSignOut">
     				<i className="material-icons">account_circle</i> Sign Out
     			</div>
     		</div>

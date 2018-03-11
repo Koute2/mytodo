@@ -26,6 +26,7 @@ textarea, input {
 	flex: auto;
 	transition: all 0.15s ease-out;
 	border-radius: 0.43em;
+	color: #424242;
 }
 
 textarea:hover, input:hover {
@@ -50,9 +51,9 @@ input:focus, select:focus, textarea:focus, button:focus {
 }
 
 .container {
-	background: linear-gradient(to bottom right, #607D8B 10%, #EEEEEE 90%);
 	width: 100vw;
 	height: 100vh;
+	color: #424242;
 }
 
 .WorkList {
@@ -171,10 +172,8 @@ input:focus, select:focus, textarea:focus, button:focus {
 }
 
 .globalMenu {
-	background-color: rgb(255,255,255);
 	display: flex;
 	flex-direction: column;
-	box-shadow: 4px 4px 4px rgba(0,0,0,0.20);
 	font-size: 1.5rem;
 }
 
@@ -185,19 +184,17 @@ input:focus, select:focus, textarea:focus, button:focus {
 }
 
 .title {
-	font-size: 3rem;
-	align-items: center;
-	justify-content: center;
-	box-shadow: 0 1px 0 rgba(0,0,0,0.20);
-	padding: 0.43em 0;
 	font-weight: bold;
-	text-shadow: 1px 1px 1px rgba(0,0,0,0.20);
 }
 
 
 @media (max-width: 900px) {
+	.container {
+		background: linear-gradient(to bottom right, #607D8B 10%, #EEEEEE 90%);
+	}
+
 	.WorkContainer {
-		background-color: #FFFFFF;
+		background-color: #FAFAFA;
 	}
 
 	.menuWrapper {
@@ -222,6 +219,9 @@ input:focus, select:focus, textarea:focus, button:focus {
 		width: 30vh;
 		height: 30vh;
 		border-radius: 1.72em;
+		box-shadow: 4px 4px 4px rgba(0,0,0,0.20);
+		background-color: #FAFAFA;
+		align-items: center;
 	}
 
 	.globalMenu .flexContent {
@@ -231,26 +231,11 @@ input:focus, select:focus, textarea:focus, button:focus {
 	.globalMenu .flex {
 		display: none;
 	}
-	.title {
-		display: none;
-	}
 
-	.menuBar {
+	.globalMenu div {
 		flex: auto;
-	}
-
-	.menuBar:active {
-		box-shadow: inset 0 0 4px 1px rgba(0,0,0,0.40);
-	}
-
-	.menuBar:nth-child(3):active {
-		box-shadow: inset 0 -4px 4px rgba(0,0,0,0.20);
-		border-radius: 1.72em 1.72em 0 0;
-	}
-
-	.menuBar:last-child:active {
-		box-shadow: inset 0 4px 4px rgba(0,0,0,0.20);
-		border-radius: 0 0 1.72em 1.72em;
+		display: flex;
+		align-items: center;
 	}
 
 
@@ -259,13 +244,9 @@ input:focus, select:focus, textarea:focus, button:focus {
 @media (min-width: 901px) {
 	.container {
 		display: grid;
-		grid-template-columns: 1fr 2.5fr;
-		background: linear-gradient(to bottom right, #FAFAFA, #FF5722);
-		color: #616161;
-	}
-
-	textarea, input {
-		color: #616161;
+		grid-gap: 4px;
+		grid-template-columns: 1fr 2.4fr;
+		background-color: #F5F5F5;
 	}
 
 	.WorkList {
@@ -273,7 +254,7 @@ input:focus, select:focus, textarea:focus, button:focus {
 	}
 
 	.WorkContainer {
-		background-color: rgba(255,255,255,0.50);
+		box-shadow: -1px 1px rgba(0,0,0,0.20), 1px -1px rgba(255,255,255,0.20);
 	}
 
 	.MobileMenu {
@@ -285,11 +266,11 @@ input:focus, select:focus, textarea:focus, button:focus {
 	}
 
 	.animBar:hover {
-		background-color: rgba(255,255,255,0.80);
+		background-color: rgba(0,0,0,0.20);
 	}
 
 	.animBar:active {
-		background-color: rgba(255,255,255,0.80);
+		background-color: rgba(0,0,0,0.20);
 	}
 
 	.closeBody, .openBody {
@@ -311,53 +292,83 @@ input:focus, select:focus, textarea:focus, button:focus {
 
 	.menuWrapper {
 		grid-column: 1;
+		background-color: rgba(0,0,0,0.20);
 	}
 
 	.globalMenu {
-		background-color: rgba(255,255,255,0.20);
 		height: 100vh;
 	}
 
 	.menuBar {
-		box-shadow: 0 1px 0 rgba(0,0,0,0.20);
 		padding: 0.43em 0;
 	}
 
-	.title {
-		display: flex;
+	.globalMenu input {
+		box-shadow: 0 1px rgba(0,0,0,0.20);
 	}
 
-	.menuBar:last-child {
-		border: none;
+	.globalMenu div {
+		margin-top: 2px;
+		margin-bottom: 2px;
+	}
+
+	.menuChangePass {
 		font-size: 1rem;
 	}
 
-	.menuBar:hover {
-		background-color: rgba(0,0,0,0.10);
+	.menuSignOut {
+		font-size: 1rem;
 	}
 
-	.globalMenu {
-		box-shadow: 4px 0 4px rgba(0,0,0,0.20);
+	.title, .menuNew, .menuChangePass, .menuSignOut {
+		padding: 0.43em;
+		display: flex;
+		background-color: #757575;
+		box-shadow: -4px 4px #FF9800;
+		position: relative;
+		left: 4px;
+		bottom: 4px;
+		transition: all 0.05s ease-out;
+		justify-content: flex-end;
 	}
 
-	.globalMenu .flexContent {
-		box-shadow: 0 1px 0 rgba(0,0,0,0.20);
+
+	.globalMenu .title {
+		margin-top: 4px;
+		font-size: 3rem;
+		justify-content: center;
+		color: rgba(255, 152, 0, 0.8);
+		text-shadow: -4px 4px 4px #757575, 0 0 0 #000;
 	}
 
-	.globalMenu .flex {
-		box-shadow: 0 1px 0 rgba(0,0,0,0.20);
+	.globalMenu	.menuSignOut {
+		margin-bottom: 0;
+	}
+
+	.menuNew:hover, .menuChangePass:hover, .menuSignOut:hover {
+		position: static;
+		background-color: #FF9800;
+		box-shadow:	none;
 	}
 
 	.globalMenu input {
 		border-radius: 0;
+		background-color: #757575;
+		box-shadow: -4px 4px #FF9800;
+		position: relative;
+		left: 4px;
+		bottom: 4px;
+		transition: all 0.05s ease-out;
 	}
 
 	.globalMenu input:hover {
-		background-color: rgba(0,0,0,0.10);
+		background-color: #FF9800;
+		position: static;
+		box-shadow: none;
 	}
 
 	.globalMenu input:focus {
-		background-color: rgba(0,0,0,0.10);
+		background-color: #9E9E9E;
 	}
 
 }
