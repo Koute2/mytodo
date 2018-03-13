@@ -4,7 +4,7 @@ class CreateWorks < ActiveRecord::Migration[5.1]
     	t.integer :user_id, index: true
     	t.string :title, default: ""
     	t.text :body, default: ""
-    	t.integer :is_done, default: 0
+    	t.datetime :finished_at, index: true
       t.timestamps
     end
   end

@@ -33,9 +33,10 @@ ActiveRecord::Schema.define(version: 20180224092811) do
     t.integer "user_id"
     t.string "title", default: ""
     t.text "body", default: ""
-    t.integer "is_done", default: 0
+    t.datetime "finished_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["finished_at"], name: "index_works_on_finished_at"
     t.index ["user_id"], name: "index_works_on_user_id"
   end
 
