@@ -15,7 +15,6 @@ export default class MobileMenu extends React.Component {
 
   handleInput (event) {
   	const newFilter = event.target.value;
-  	this.setState({filter: newFilter});
   	this.props.onChange(newFilter);
   }
 

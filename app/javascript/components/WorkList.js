@@ -135,7 +135,7 @@ export default class WorkList extends React.Component {
   	const works = this.state.filter ? this.state.works.filter(work => work.title.includes(this.state.filter) || work.body.includes(this.state.filter)) : this.state.works;
     return (
       <div className="container">
-        <Menu onChange={this.changeFilter} openMenu={this.state.openMenu} toggleMenu={this.toggleMenu} onClickNew={this.newChild} />
+        <Menu onChange={this.changeFilter} openMenu={this.state.openMenu} toggleMenu={this.toggleMenu} onClickNew={this.newChild} editUser={this.props.edit_user} signOut={this.props.sign_out} token={this.props.token} />
         <div className="WorkList">
           <MobileMenu onChange={this.changeFilter} onClick={this.toggleMenu} />
           <div className="WorkListBody">
