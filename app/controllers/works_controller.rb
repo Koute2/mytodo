@@ -1,4 +1,5 @@
 class WorksController < ApplicationController
+
 	# skip_before_action :verify_authenticity_token, if: :json_request?
 	# skip_before_action :authenticate_user!, if: :json_request?
 
