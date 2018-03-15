@@ -32,7 +32,7 @@ ActiveRecord::Schema.define(version: 20180224092811) do
   create_table "works", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC" do |t|
     t.integer "user_id"
     t.string "title", default: ""
-    t.string "body", limit: 16383, default: ""
+    t.string "body", limit: 4096, default: ""
     t.datetime "finished_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
