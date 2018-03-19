@@ -32,7 +32,3 @@ yarn-debug.log*
 !.elasticbeanstalk/*.cfg.yml
 !.elasticbeanstalk/*.global.yml
 
-# Elastic Beanstalk Config Files
-.ebextensions/*
-!.ebextensions/*cfg.yml
-!.ebextensions/*.global.yml
