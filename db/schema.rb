@@ -12,10 +12,10 @@
 
 ActiveRecord::Schema.define(version: 20180224092811) do
 
-  create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC" do |t|
-    t.string "email", default: "", null: false
-    t.string "encrypted_password", default: "", null: false
-    t.string "reset_password_token"
+  create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC" do |t|
+    t.string "email", default: "", null: false, collation: "utf8_bin"
+    t.string "encrypted_password", default: "", null: false, collation: "utf8_bin"
+    t.string "reset_password_token", collation: "utf8_bin"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
     t.integer "sign_in_count", default: 0, null: false
@@ -29,7 +29,7 @@ ActiveRecord::Schema.define(version: 20180224092811) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  create_table "works", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC" do |t|
+  create_table "works", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC" do |t|
     t.integer "user_id"
     t.string "title", default: ""
     t.string "body", limit: 4096, default: ""

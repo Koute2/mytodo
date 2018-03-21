@@ -4,11 +4,11 @@ class DeviseCreateUsers < ActiveRecord::Migration[5.1]
   def change
     create_table :users, options: 'ENGINE=InnoDB ROW_FORMAT=DYNAMIC' do |t|
       ## Database authenticatable
-      t.string :email,              null: false, default: ""
-      t.string :encrypted_password, null: false, default: ""
+      t.string :email,              null: false, default: "", collation: :utf8_bin
+      t.string :encrypted_password, null: false, default: "", collation: :utf8_bin
 
       ## Recoverable
-      t.string   :reset_password_token
+      t.string   :reset_password_token, collation: :utf8_bin
       t.datetime :reset_password_sent_at
 
       ## Rememberable
