@@ -1,0 +1,24 @@
+branch-defaults:
+  master:
+    environment: test
+environment-defaults:
+  production:
+    branch: null
+    repository: null
+  production2:
+    branch: null
+    repository: null
+global:
+  application_name: mytodo
+  branch: null
+  default_ec2_keyname: mytodo_Koute2
+  default_platform: Ruby 2.5 (Puma)
+  default_region: ap-northeast-1
+  include_git_submodules: true
+  instance_profile: null
+  platform_name: null
+  platform_version: null
+  profile: eb-cli
+  repository: null
+  sc: git
+  workspace_type: Application
