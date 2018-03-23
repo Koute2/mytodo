@@ -9,7 +9,7 @@ class WorksController < ApplicationController
 
 	def index
 		@works = current_user.works.reverse_order
-		if @works.empty?
+		if @works.blank?
 			work = current_user.works.create
 			@works = []
 			@works.push(work)
