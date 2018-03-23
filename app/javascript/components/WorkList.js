@@ -147,3 +147,12 @@ export default class WorkList extends React.Component {
     );
   }
 }
+
+WorkList.propTypes = {
+  works: PropTypes.arrayOf(PropTypes.object),
+  url: PropTypes.string,
+  edit_user: PropTypes.string,
+  sign_out: PropTypes.string,
+  token: PropTypes.string
+}
+

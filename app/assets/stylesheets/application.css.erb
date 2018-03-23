@@ -316,12 +316,18 @@ input:focus, select:focus, textarea:focus, button:focus {
 		display: none;
 	}
 
-	.animBar {
+	.closeBar, .openBar {
 		transition: all 0.15s ease-out;
 	}
 
-	.animBar:hover, .animBar:active {
-		background-color: rgba(255,255,255,0.90);
+	.closeBar:hover, .closeBar:active {
+		background-color: rgba(255,255,255,0.30);
+		box-shadow: 2px 2px 4px 2px rgba(0,0,0,0.20);
+	}
+
+	.openBar:hover, .openBar:active {
+		background-color: rgba(255,255,255,0.85);
+		box-shadow: 2px 2px 4px 2px rgba(0,0,0,0.20);
 	}
 
 	.addButton {
