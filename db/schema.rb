@@ -12,10 +12,10 @@
 
 ActiveRecord::Schema.define(version: 20180224092811) do
 
-  create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC" do |t|
-    t.string "email", default: "", null: false, collation: "utf8_bin"
-    t.string "encrypted_password", default: "", null: false, collation: "utf8_bin"
-    t.string "reset_password_token", collation: "utf8_bin"
+  create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin ROW_FORMAT=DYNAMIC" do |t|
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
     t.integer "sign_in_count", default: 0, null: false

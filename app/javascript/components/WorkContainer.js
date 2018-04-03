@@ -10,7 +10,7 @@ export default class WorkContainer extends React.Component {
     this.handleDelete = this.handleDelete.bind(this);
   }
 
-  componentWillMount () {
+  componentDidMount () {
     const id = this.props.work.id;
     this.props.work.openBody || this.props.work.title == "" ? this.props.toggleBody(id, true) : null;
   }
