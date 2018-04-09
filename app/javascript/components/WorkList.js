@@ -102,29 +102,31 @@ export default class WorkList extends React.Component {
   }
 
   async newChild () {
-  	const url = this.props.url + '.json';
-  	const token = this.props.token;
-		try {
-			let response = await fetch(url, {
-				headers: {
-	        'X-CSRF-Token': token,
-	        'Content-Type': 'application/json; charset=utf-8'
-				},
-				method: 'POST',
-				credentials: 'same-origin'
-			});
-			if (response.ok) {
-				console.log('Posted: ', response);
-				let jsonResponse = await response.json();
-				jsonResponse.openBody = true;
-				let newWorks = this.state.works;
-				newWorks.unshift(jsonResponse);
-				this.setState({works: newWorks});
-			}
-		}
-    catch (error) {
-			console.log(error);
-  	}
+    if (this.state.works[0].title != "" && this.state.works[0].body != "") {
+      const url = this.props.url + '.json';
+      const token = this.props.token;
+      try {
+        let response = await fetch(url, {
+          headers: {
+            'X-CSRF-Token': token,
+            'Content-Type': 'application/json; charset=utf-8'
+          },
+          method: 'POST',
+          credentials: 'same-origin'
+        });
+        if (response.ok) {
+          console.log('Posted: ', response);
+          let jsonResponse = await response.json();
+          jsonResponse.openBody = true;
+          let newWorks = this.state.works;
+          newWorks.unshift(jsonResponse);
+          this.setState({works: newWorks});
+        }
+      }
+      catch (error) {
+        console.log(error);
+      }
+    }
   }
 
   toggleMenu () {
