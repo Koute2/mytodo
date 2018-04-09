@@ -102,7 +102,7 @@ export default class WorkList extends React.Component {
   }
 
   async newChild () {
-    if (this.state.works[0].title != "" && this.state.works[0].body != "") {
+    if (this.state.works[0].title || this.state.works[0].body) {
       const url = this.props.url + '.json';
       const token = this.props.token;
       try {
@@ -136,7 +136,7 @@ export default class WorkList extends React.Component {
   render () {
   	const works = this.state.filter ? this.state.works.filter(work => work.title.includes(this.state.filter) || work.body.includes(this.state.filter)) : this.state.works;
     return (
-      <div className="container">
+      <React.Fragment>
         <Menu onChange={this.changeFilter} openMenu={this.state.openMenu} toggleMenu={this.toggleMenu} onClickNew={this.newChild} editUser={this.props.edit_user} signOut={this.props.sign_out} token={this.props.token} />
         <div className="WorkList">
           <MobileMenu onChange={this.changeFilter} onClick={this.toggleMenu} />
@@ -145,7 +145,7 @@ export default class WorkList extends React.Component {
           </div>
           <a className="addButton material-icons" onClick={this.newChild}>add_circle</a>
         </div>
-      </div>
+      </React.Fragment>
     );
   }
 }
