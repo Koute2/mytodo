@@ -43,6 +43,11 @@ input:focus, select:focus, textarea:focus, button:focus {
 	outline: none;
 }
 
+a {
+	text-decoration: none;
+	color: #424242;
+}
+
 .material-icons {
 	font-size: 1.5em;
 }
@@ -50,6 +55,33 @@ input:focus, select:focus, textarea:focus, button:focus {
 .container {
 	width: 100vw;
 	height: 100vh;
+}
+
+.bigBold {
+	font-weight: bold;
+	font-size: 1.5rem;
+	margin-bottom: 0.43em;
+}
+
+.deviseButton {
+	padding: 0.43em;
+	border-radius: 3px;
+	background-color: #FAFAFA;
+	opacity: 0.5;
+	margin: 0 1.72rem;
+	box-shadow: 4px 4px 4px rgba(0,0,0,0.20), -1px -1px 0 rgba(255,255,255,0.20);
+	transition: all 0.15s ease-out;
+}
+
+.deviseButton:hover {
+	opacity: 0.9;
+}
+
+.deviseButton:active {
+	position: relative;
+	top: 4px;
+	left: 4px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,0.20), -1px -1px 0 rgba(255,255,255,0.20);
 }
 
 .WorkList {
@@ -203,6 +235,7 @@ input:focus, select:focus, textarea:focus, button:focus {
 	padding: 1.72em;
 	border-radius: 1.72em;
 	background-color: #FAFAFA;
+	opacity: 0.9;
 	box-shadow: 4px 4px 4px rgba(0,0,0,0.20), -1px -1px 0 rgba(255,255,255,0.20);
 	margin-top: -1.72em;
 	margin-bottom: 1.72em;
@@ -212,6 +245,7 @@ input:focus, select:focus, textarea:focus, button:focus {
 	padding: 1.72em;
 	border-radius: 1.72em;
 	background-color: #FAFAFA;
+	opacity: 0.9;
 	box-shadow: 4px 4px 4px rgba(0,0,0,0.20), -1px -1px 0 rgba(255,255,255,0.20);
 }
 

@@ -1,18 +1,14 @@
 class WorksController < ApplicationController
-
-	# skip_before_action :verify_authenticity_token, if: :json_request?
-	# skip_before_action :authenticate_user!, if: :json_request?
-
-  	# def json_request?
-   #  	request.format.json?
-   #  end
+	before_action :authenticate_user!, except: :index
 
 	def index
-		@works = current_user.works.reverse_order
-		if @works.blank?
-			work = current_user.works.create
-			@works = []
-			@works.push(work)
+		if user_signed_in?
+			@works = current_user.works.reverse_order
+			if @works.blank?
+				work = current_user.works.create
+				@works = []
+				@works.push(work)
+			end
 		end
 	end
 

@@ -35,6 +35,7 @@ export default class Menu extends React.Component {
         let response = await fetch(url, {
           headers: {
             'X-CSRF-Token': token,
+            'Content-Type': 'application/json; charset=utf-8'
           },
           method: 'DELETE',
           credentials: 'same-origin'
