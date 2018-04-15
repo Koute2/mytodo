@@ -6,7 +6,8 @@
         "modules": false,
         "targets": {
           "node": "current"
-        }
+        },
+        "useBuiltIns": true
       }
     ],
     "react"

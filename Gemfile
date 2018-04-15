@@ -52,7 +52,7 @@ end
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
-gem 'webpacker', git: 'https://github.com/rails/webpacker.git'
+gem 'webpacker', '~> 3.4'
 gem 'react-rails'
 gem 'devise'
 gem 'normalize-rails'
