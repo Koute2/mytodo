@@ -4,7 +4,8 @@ import WorkContainer from "./WorkContainer"
 import MobileMenu from "./MobileMenu"
 import Menu from "./Menu"
 
-export default class WorkList extends React.Component {
+
+class Container extends React.Component {
   constructor (props) {
   	super(props);
   	this.state = {
@@ -13,14 +14,27 @@ export default class WorkList extends React.Component {
   		openMenu: false
   	};
   	this.changeFilter = this.changeFilter.bind(this);
-  	this.deleteChild = this.deleteChild.bind(this);
+    this.newChild = this.newChild.bind(this);
     this.modChildTitle = this.modChildTitle.bind(this);
     this.modChildBody = this.modChildBody.bind(this);
+    this.waitLastInput = this.waitLastInput.bind(this);
+    this.submitChild = this.submitChild.bind(this);
+  	this.deleteChild = this.deleteChild.bind(this);
   	this.toggleBody = this.toggleBody.bind(this);
-  	this.waitLastInput = this.waitLastInput.bind(this);
-  	this.submitChild = this.submitChild.bind(this);
   	this.toggleMenu = this.toggleMenu.bind(this);
-  	this.newChild = this.newChild.bind(this);
+  }
+
+  componentDidMount () {
+  	let newWorks = this.state.works;
+  	newWorks.map(work => {
+  		work.inputCount = 0;
+  		if (work.title == "") {
+  			work.openBody = true;
+  		} else {
+  			work.openBody = false;
+  		};
+  	});
+  	this.setState({works: newWorks});
   }
 
   toggleBody (id, toggle) {
@@ -130,6 +144,7 @@ export default class WorkList extends React.Component {
         if (response.ok) {
           console.log('Posted: ', response);
           let jsonResponse = await response.json();
+          jsonResponse.inputCount = 0;
           jsonResponse.openBody = true;
           let newWorks = this.state.works;
           newWorks.unshift(jsonResponse);
@@ -163,7 +178,7 @@ export default class WorkList extends React.Component {
   }
 }
 
-WorkList.propTypes = {
+Container.propTypes = {
   works: PropTypes.arrayOf(PropTypes.object),
   url: PropTypes.string,
   edit_user: PropTypes.string,
@@ -171,3 +186,4 @@ WorkList.propTypes = {
   token: PropTypes.string
 }
 
+export default Container
