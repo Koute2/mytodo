@@ -21,19 +21,15 @@ export default class WorkContainer extends React.Component {
   }
 
   modTitle (event) {
-    const id = this.props.work.id;
     const count = this.props.work.inputCount ? this.props.work.inputCount + 1 : 1;
     const newTitle = event.target.value;
-    const body = this.props.work.body;
-    this.props.onChange(id, newTitle, body, count);
+    this.props.modTitle(this.props.work.id, newTitle, count);
   }
 
   modBody (event) {
-    const id = this.props.work.id;
     const count = this.props.work.inputCount ? this.props.work.inputCount + 1 : 1;
-    const title = this.props.work.title;
     const newBody = event.target.value;
-    this.props.onChange(id, title, newBody, count);
+    this.props.modBody(this.props.work.id ,newBody, count);
   }
 
   handleDelete () {
@@ -58,7 +54,8 @@ export default class WorkContainer extends React.Component {
 
 WorkContainer.propTypes = {
   work: PropTypes.object,
-  onChange: PropTypes.func,
+  modTitle: PropTypes.func,
+  modBody: PropTypes.func,
   onDelete: PropTypes.func,
   toggleBody: PropTypes.func
 };
