@@ -28,11 +28,7 @@ class Container extends React.Component {
   	let newWorks = this.state.works;
   	newWorks.map(work => {
   		work.inputCount = 0;
-  		if (work.title == "") {
-  			work.openBody = true;
-  		} else {
-  			work.openBody = false;
-  		};
+  		work.title ? null : work.openBody = true;
   	});
   	this.setState({works: newWorks});
   }
