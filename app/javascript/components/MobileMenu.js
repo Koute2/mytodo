@@ -14,14 +14,11 @@ export default class MobileMenu extends React.Component {
   }
 
   handleInput (event) {
-  	const newFilter = event.target.value;
-  	this.props.onChange(newFilter);
+  	this.props.onChange(event.target.value);
   }
 
   handleClear () {
-  	this.setState({
-  		openSearch: false
-  	});
+  	this.setState({openSearch: false});
   	this.props.onChange("");
   }
 

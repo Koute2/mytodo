@@ -10,8 +10,10 @@ class Container extends React.Component {
   	super(props);
   	this.state = {
   		works: this.props.works,
+  		done: this.props.done,
   		filter: "",
-  		openMenu: false
+  		openMenu: false,
+  		displayProgress: true
   	};
   	this.changeFilter = this.changeFilter.bind(this);
     this.newChild = this.newChild.bind(this);
@@ -22,21 +24,37 @@ class Container extends React.Component {
   	this.deleteChild = this.deleteChild.bind(this);
   	this.toggleBody = this.toggleBody.bind(this);
   	this.toggleMenu = this.toggleMenu.bind(this);
+  	this.toggleProgress = this.toggleProgress.bind(this);
+    this.toggleFinished = this.toggleFinished.bind(this);
   }
 
   componentDidMount () {
   	let newWorks = this.state.works;
+  	let newDone = this.state.done;
   	newWorks.map(work => {
   		work.inputCount = 0;
   		work.title ? null : work.openBody = true;
   	});
-  	this.setState({works: newWorks});
+  	newDone.map(work => {
+  		work.inputCount = 0;
+  		work.title ? null : work.openBody = true;
+  	});
+  	this.setState({
+  		works: newWorks,
+  		done: newDone
+  	});
   }
 
   toggleBody (id, toggle) {
-  	let newWorks = this.state.works;
-  	newWorks.findIndex(work => work.id === id ? work.openBody = toggle : null);
-  	this.setState({works: newWorks});
+    if (this.state.works.findIndex(work => work.id === id) > -1) {
+    	let newWorks = this.state.works;
+    	newWorks.findIndex(work => work.id === id ? work.openBody = toggle : null);
+    	this.setState({works: newWorks});
+    } else {
+      let newDone = this.state.done;
+      newDone.findIndex(work => work.id === id ? work.openBody = toggle : null);
+      this.setState({done: newDone});
+    }
   }
 
   changeFilter (newFilter) {
@@ -75,7 +93,7 @@ class Container extends React.Component {
   async submitChild (id) {
   	const url = this.props.url + '/' + id + '.json';
     const token = this.props.token;
-    const work = this.state.works.find(work => work.id === id);
+    const work = this.state.works.find(work => work.id === id) || this.state.done.find(work => work.id === id);
     try {
     	let response = await fetch(url, {
 	      headers: {
@@ -86,7 +104,8 @@ class Container extends React.Component {
 	      credentials: 'same-origin',
 	      body: JSON.stringify({
 	        title: work.title,
-	        body: work.body
+	        body: work.body,
+          finished_at: work.finished_at
 	      })
 	    });
       if (response.ok) {
@@ -99,11 +118,6 @@ class Container extends React.Component {
   }
 
   async deleteChild (id) {
-  	let newWorks = this.state.works;
-  	newWorks.splice(newWorks.findIndex(work => work.id === id), 1);
-  	this.setState({
-  		works: newWorks
-  	});
     const url = this.props.url + '/' + id + '.json';
     const token = this.props.token;
     try {
@@ -117,6 +131,15 @@ class Container extends React.Component {
 	    });
 	    if (response.ok) {
 	    	console.log('Deleted: ', response);
+        if (this.state.works.findIndex(work => work.id === id) > -1) {
+          let newWorks = this.state.works;
+          newWorks.splice(newWorks.findIndex(work => work.id === id), 1);
+          this.setState({works: newWorks});
+        } else {
+          let newDone = this.state.done;
+          newDone.splice(newDone.findIndex(work => work.id === id), 1);
+          this.setState({done: newDone});
+        }
 	    }
     }
     catch (error) {
@@ -153,19 +176,54 @@ class Container extends React.Component {
     }
   }
 
+  toggleFinished (id) {
+    let newWorks = this.state.works;
+    let newDone = this.state.done;
+
+    if (newWorks.findIndex(work => work.id === id) > -1) {
+      let work = newWorks.find(work => work.id === id);
+      work.openBody = false;
+      work.inputCount++;
+      work.finished_at = new Date;
+      newWorks.splice(newWorks.findIndex(work => work.id === id), 1);
+      newDone.unshift(work);
+    } else {
+      let work = newDone.find(work => work.id === id);
+      work.openBody = false;
+      work.inputCount++;
+      work.finished_at = null;
+      newDone.splice(newDone.findIndex(work => work.id === id), 1);
+      newWorks.unshift(work);
+    }
+
+
+    this.setState({
+      works: newWorks,
+      done: newDone
+    });
+
+    this.submitChild(id);
+  }
+
   toggleMenu () {
   	this.state.openMenu ? this.setState({openMenu: false}) : this.setState({openMenu: true});
   }
 
+  toggleProgress () {
+  	this.state.displayProgress ? this.setState({displayProgress: false}) : this.setState({displayProgress: true});
+  }
+
   render () {
-  	const works = this.state.filter ? this.state.works.filter(work => work.title.includes(this.state.filter) || work.body.includes(this.state.filter)) : this.state.works;
+  	const displayed = this.state.displayProgress ? this.state.works : this.state.done;
+  	const works = this.state.filter ? displayed.filter(work => work.title.includes(this.state.filter) || work.body.includes(this.state.filter)) : displayed;
+
     return (
       <React.Fragment>
-        <Menu onChange={this.changeFilter} openMenu={this.state.openMenu} toggleMenu={this.toggleMenu} onClickNew={this.newChild} editUser={this.props.edit_user} signOut={this.props.sign_out} token={this.props.token} />
+        <Menu onChange={this.changeFilter} openMenu={this.state.openMenu} toggleMenu={this.toggleMenu} onClickNew={this.newChild} displayProgress={this.state.displayProgress} toggleProgress={this.toggleProgress} editUser={this.props.edit_user} signOut={this.props.sign_out} token={this.props.token} />
         <div className="WorkList">
           <MobileMenu onChange={this.changeFilter} onClick={this.toggleMenu} />
           <div className="WorkListBody">
-           { works.map((work, i) => <WorkContainer work={work} key={i} modTitle={this.modChildTitle} modBody={this.modChildBody} onDelete={this.deleteChild} toggleBody={this.toggleBody} />) }
+           { works.map((work, i) => <WorkContainer work={work} key={i} modTitle={this.modChildTitle} modBody={this.modChildBody} onDelete={this.deleteChild} toggleBody={this.toggleBody} toggleFinished={this.toggleFinished} />) }
           </div>
           <a className="addButton material-icons" onClick={this.newChild}>add_circle</a>
         </div>
@@ -176,6 +234,7 @@ class Container extends React.Component {
 
 Container.propTypes = {
   works: PropTypes.arrayOf(PropTypes.object),
+  done: PropTypes.arrayOf(PropTypes.object),
   url: PropTypes.string,
   edit_user: PropTypes.string,
   sign_out: PropTypes.string,

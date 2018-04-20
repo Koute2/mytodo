@@ -235,6 +235,15 @@ a {
 	margin-bottom: 1.72em;
 }
 
+.message::first-line {
+	font-size: 2rem;
+	font-weight: bold;
+}
+
+.message::first-letter {
+	color: #009688;
+}
+
 .center {
 	padding: 1.72em;
 	border-radius: 1.72em;
@@ -335,6 +344,13 @@ a {
 	}
 }
 
+@media (max-width: 900px) and (min-aspect-ratio: 1/1) {
+	.globalMenu {
+		width: 30vw;
+		height: 30vw;
+	}
+}
+
 @media (min-width: 901px) {
 	body {
 		background: url("<%= asset_path "ocean.jpeg" %>");
@@ -403,10 +419,6 @@ a {
 		flex: auto;
 	}
 
-	.globalMenu input {
-		box-shadow: 0 1px rgba(0,0,0,0.20);
-	}
-
 	.globalMenu div {
 		margin-top: 2px;
 		margin-bottom: 2px;
@@ -462,7 +474,7 @@ a {
 		left: 4px;
 		bottom: 4px;
 		transition: all 0.05s ease-out;
-		margin-left: 0.43em;
+		margin-left: 0.43rem;
 	}
 
 	.globalMenu input:hover {
