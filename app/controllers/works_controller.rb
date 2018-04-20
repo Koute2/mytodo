@@ -3,7 +3,9 @@ class WorksController < ApplicationController
 
 	def index
 		if user_signed_in?
-			@works = current_user.works.reverse_order
+			all_works = current_user.works.reverse_order
+			@works = all_works.select{|work| work.finished_at == nil}
+			@done = all_works.select{|work| work.finished_at != nil}
 			if @works.blank?
 				work = current_user.works.create
 				@works = []
@@ -35,6 +37,6 @@ class WorksController < ApplicationController
 
 	private
 		def work_params
-			params.require(:work).permit(:title, :body, :user_id, :status)
+			params.require(:work).permit(:title, :body, :user_id, :finished_at)
 		end
 end

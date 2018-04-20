@@ -48,6 +48,9 @@ GEM
     bcrypt (3.1.11)
     bindex (0.5.0)
     builder (3.2.3)
+    bullet (5.7.5)
+      activesupport (>= 3.0.0)
+      uniform_notifier (~> 1.11.0)
     byebug (10.0.2)
     capybara (2.18.0)
       addressable
@@ -80,7 +83,7 @@ GEM
     ffi (1.9.23)
     globalid (0.4.1)
       activesupport (>= 4.2.0)
-    i18n (1.0.0)
+    i18n (1.0.1)
       concurrent-ruby (~> 1.0)
     jbuilder (2.7.0)
       activesupport (>= 4.2.0)
@@ -192,9 +195,10 @@ GEM
       thread_safe (~> 0.1)
     uglifier (4.1.9)
       execjs (>= 0.3.0, < 3)
+    uniform_notifier (1.11.0)
     warden (1.2.7)
       rack (>= 1.0)
-    web-console (3.6.0)
+    web-console (3.6.1)
       actionview (>= 5.0)
       activemodel (>= 5.0)
       bindex (>= 0.4.0)
@@ -213,6 +217,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  bullet
   byebug
   capybara (~> 2.13)
   coffee-rails (~> 4.2)

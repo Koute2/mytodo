@@ -10,8 +10,10 @@ class Container extends React.Component {
   	super(props);
   	this.state = {
   		works: this.props.works,
+  		done: this.props.done,
   		filter: "",
-  		openMenu: false
+  		openMenu: false,
+  		displayProgress: true
   	};
   	this.changeFilter = this.changeFilter.bind(this);
     this.newChild = this.newChild.bind(this);
@@ -22,15 +24,24 @@ class Container extends React.Component {
   	this.deleteChild = this.deleteChild.bind(this);
   	this.toggleBody = this.toggleBody.bind(this);
   	this.toggleMenu = this.toggleMenu.bind(this);
+  	this.toggleProgress = this.toggleProgress.bind(this);
   }
 
   componentDidMount () {
   	let newWorks = this.state.works;
+  	let newDone = this.state.done;
   	newWorks.map(work => {
   		work.inputCount = 0;
   		work.title ? null : work.openBody = true;
   	});
-  	this.setState({works: newWorks});
+  	newDone.map(work => {
+  		work.inputCount = 0;
+  		work.title ? null : work.openBody = true;
+  	});
+  	this.setState({
+  		works: newWorks,
+  		done: newDone
+  	});
   }
 
   toggleBody (id, toggle) {
@@ -157,11 +168,17 @@ class Container extends React.Component {
   	this.state.openMenu ? this.setState({openMenu: false}) : this.setState({openMenu: true});
   }
 
+  toggleProgress () {
+  	this.state.displayProgress ? this.setState({displayProgress: false}) : this.setState({displayProgress: true});
+  }
+
   render () {
-  	const works = this.state.filter ? this.state.works.filter(work => work.title.includes(this.state.filter) || work.body.includes(this.state.filter)) : this.state.works;
+  	const displayed = this.state.displayProgress ? this.state.works : this.state.done;
+  	const works = this.state.filter ? displayed.filter(work => work.title.includes(this.state.filter) || work.body.includes(this.state.filter)) : displayed;
+
     return (
       <React.Fragment>
-        <Menu onChange={this.changeFilter} openMenu={this.state.openMenu} toggleMenu={this.toggleMenu} onClickNew={this.newChild} editUser={this.props.edit_user} signOut={this.props.sign_out} token={this.props.token} />
+        <Menu onChange={this.changeFilter} openMenu={this.state.openMenu} toggleMenu={this.toggleMenu} onClickNew={this.newChild} displayProgress={this.state.displayProgress} toggleProgress={this.toggleProgress} editUser={this.props.edit_user} signOut={this.props.sign_out} token={this.props.token} />
         <div className="WorkList">
           <MobileMenu onChange={this.changeFilter} onClick={this.toggleMenu} />
           <div className="WorkListBody">
@@ -176,6 +193,7 @@ class Container extends React.Component {
 
 Container.propTypes = {
   works: PropTypes.arrayOf(PropTypes.object),
+  done: PropTypes.arrayOf(PropTypes.object),
   url: PropTypes.string,
   edit_user: PropTypes.string,
   sign_out: PropTypes.string,
