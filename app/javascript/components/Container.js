@@ -25,10 +25,7 @@ class Container extends React.Component {
   	this.toggleBody = this.toggleBody.bind(this);
   	this.toggleMenu = this.toggleMenu.bind(this);
   	this.toggleProgress = this.toggleProgress.bind(this);
-<<<<<<< HEAD
     this.toggleFinished = this.toggleFinished.bind(this);
-=======
->>>>>>> 883cbbf507349d5a6499e5b9b86706258b8a60ba
   }
 
   componentDidMount () {
