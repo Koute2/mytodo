@@ -20,7 +20,7 @@ export default class Menu extends React.Component {
   }
 
   closeMenu () {
-  	this.props.toggleMenu();
+    this.props.openMenu ? this.props.toggleMenu() : null;
   }
 
   editUser () {

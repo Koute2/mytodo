@@ -37,7 +37,6 @@ class Container extends React.Component {
   	});
   	newDone.map(work => {
   		work.inputCount = 0;
-  		work.title ? null : work.openBody = true;
   	});
   	this.setState({
   		works: newWorks,
@@ -87,7 +86,7 @@ class Container extends React.Component {
 
   waitLastInput (id, count) {
   	const work = this.state.works.find(work => work.id === id);
-  	work.inputCount === count ? this.submitChild(id) : null;
+     work && work.inputCount === count ? this.submitChild(id) : null;
   }
 
   async submitChild (id) {
@@ -148,7 +147,7 @@ class Container extends React.Component {
   }
 
   async newChild () {
-    if (this.state.works[0].title || this.state.works[0].body) {
+    if (this.state.works[0] == null || this.state.works[0].title || this.state.works[0].body ) {
       const url = this.props.url + '.json';
       const token = this.props.token;
       try {
@@ -182,18 +181,20 @@ class Container extends React.Component {
 
     if (newWorks.findIndex(work => work.id === id) > -1) {
       let work = newWorks.find(work => work.id === id);
-      work.openBody = false;
       work.inputCount++;
+      work.openBody = false;
       work.finished_at = new Date;
       newWorks.splice(newWorks.findIndex(work => work.id === id), 1);
-      newDone.unshift(work);
+      newDone.push(work);
+      newDone.sort((a, b) => b.id - a.id);
     } else {
       let work = newDone.find(work => work.id === id);
-      work.openBody = false;
       work.inputCount++;
+      work.openBody = false;
       work.finished_at = null;
       newDone.splice(newDone.findIndex(work => work.id === id), 1);
-      newWorks.unshift(work);
+      newWorks.push(work);
+      newWorks.sort((a, b) => b.id - a.id);
     }
 
 
