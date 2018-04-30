@@ -198,7 +198,11 @@ GEM
     uniform_notifier (1.11.0)
     warden (1.2.7)
       rack (>= 1.0)
+<<<<<<< HEAD
     web-console (3.6.2)
+=======
+    web-console (3.6.1)
+>>>>>>> 883cbbf507349d5a6499e5b9b86706258b8a60ba
       actionview (>= 5.0)
       activemodel (>= 5.0)
       bindex (>= 0.4.0)
