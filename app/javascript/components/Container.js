@@ -190,7 +190,6 @@ class Container extends React.Component {
     } else {
       let work = newDone.find(work => work.id === id);
       work.inputCount++;
-      work.openBody = false;
       work.finished_at = null;
       newDone.splice(newDone.findIndex(work => work.id === id), 1);
       newWorks.push(work);

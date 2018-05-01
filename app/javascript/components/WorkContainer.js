@@ -25,7 +25,7 @@ export default class WorkContainer extends React.Component {
   modBody (event) {
     const count = this.props.work.inputCount + 1;
     const newBody = event.target.value;
-    this.props.modBody(this.props.work.id ,newBody, count);
+    this.props.modBody(this.props.work.id, newBody, count);
   }
 
   handleDelete () {
