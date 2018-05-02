@@ -58,6 +58,7 @@ gem 'react-rails'
 gem 'devise'
 gem 'normalize-rails'
 gem 'mysql2', '~> 0.5.1'
+gem 'serviceworker-rails'
 
 
 

@@ -1,4 +1,12 @@
 <% if user_signed_in? %>
+	<noscript>
+		<p>
+			MyToDo is fully utilizing React.js, thus we need you to enable JavaScript on your browser.
+		</p>
+		<p>
+			Please allow JavaScript and try again!
+		</p>
+	</noscript>
 	<%= react_component("Container", { works: @works, done: @done, url: works_path, edit_user: edit_user_registration_path, sign_out: destroy_user_session_path, token: form_authenticity_token }, { prerender: true, class: "container" }) %>
 <% else %>
 	<div class="devise">

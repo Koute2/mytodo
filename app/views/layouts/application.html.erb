@@ -1,19 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>MyToDo - Simple ToDo Web App -</title>
+    <title>MyToDo - Simple ToDo Web App</title>
     <%= csrf_meta_tags %>
 
     <meta name="description" content="Simple Cloud ToDo App WIP">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#00675b">
     <meta name="robots" content="noindex">
+    <meta name="apple-mobile-web-app-capable" content="yes">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <%= favicon_link_tag %>
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application' %>
+    <link rel="manifest" href="/manifest.json" />
   </head>
 
   <body>
