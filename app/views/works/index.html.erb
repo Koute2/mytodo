@@ -1,9 +1,9 @@
 <% if user_signed_in? %>
-	<%= react_component("Container", { works: @works, url: works_path, edit_user: edit_user_registration_path, sign_out: destroy_user_session_path, token: form_authenticity_token }, { prerender: true, class: "container" }) %>
+	<%= react_component("Container", { works: @works, done: @done, url: works_path, edit_user: edit_user_registration_path, sign_out: destroy_user_session_path, token: form_authenticity_token }, { prerender: true, class: "container" }) %>
 <% else %>
 	<div class="devise">
 	  <div class="message">
-	    <h2>MyToDo</h2>
+	    MyToDo<br>
 	    is a simple Web-Based ToDo App.<br>
 	    Currently WIP.<br>
 	    Any data lost won't be supported.

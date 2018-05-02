@@ -8,11 +8,11 @@ export default class Menu extends React.Component {
   	this.closeMenu = this.closeMenu.bind(this);
     this.editUser = this.editUser.bind(this);
     this.signOut = this.signOut.bind(this);
+    this.handleToggleProgress = this.handleToggleProgress.bind(this);
   }
 
   handleInput (event) {
-  	const newFilter = event.target.value;
-  	this.props.onChange(newFilter);
+  	this.props.onChange(event.target.value);
   }
 
   handleClickNew () {
@@ -20,11 +20,15 @@ export default class Menu extends React.Component {
   }
 
   closeMenu () {
-  	this.props.toggleMenu();
+    this.props.openMenu ? this.props.toggleMenu() : null;
   }
 
   editUser () {
     location.href = this.props.editUser;
+  }
+
+  handleToggleProgress () {
+    this.props.toggleProgress();
   }
 
   async signOut () {
@@ -63,6 +67,10 @@ export default class Menu extends React.Component {
     			<div className="menuNew" onClick={this.handleClickNew}>
     				<i className="material-icons">add</i> New
     			</div>
+          <div className="menuNew" onClick={this.handleToggleProgress}>
+            { this.props.displayProgress ? <i className="material-icons">playlist_add_check</i> : <i className="material-icons">playlist_play</i> }
+            { this.props.displayProgress ? " Done" : " Progress" }
+          </div>
     			<div className="flexContent" />
     			<div className="menuChangePass" onClick={this.editUser}>
     				<i className="material-icons">account_circle</i> Account
@@ -82,5 +90,7 @@ Menu.propTypes = {
 	openMenu: PropTypes.bool,
 	toggleMenu: PropTypes.func,
   editUser: PropTypes.string,
-  signOut: PropTypes.string
+  signOut: PropTypes.string,
+  toggleProgress: PropTypes.func,
+  displayProgress: PropTypes.bool
 };
