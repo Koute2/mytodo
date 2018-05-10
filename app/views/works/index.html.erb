@@ -7,7 +7,7 @@
 			Please allow JavaScript and try again!
 		</p>
 	</noscript>
-	<%= react_component("Container", { works: @works, done: @done, url: works_path, edit_user: edit_user_registration_path, sign_out: destroy_user_session_path, token: form_authenticity_token }, { prerender: true, class: "container" }) %>
+	<%= react_component("Container", { works: @works, done: @done, url: works_path, edit_user: edit_user_registration_path, sign_out: destroy_user_session_path, token: form_authenticity_token }, { prerender: false, class: "container" }) %>
 <% else %>
 	<div class="devise">
 	  <div class="message">

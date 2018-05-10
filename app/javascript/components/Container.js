@@ -147,7 +147,7 @@ class Container extends React.Component {
   }
 
   async newChild () {
-    if (this.state.works[0] == null || this.state.works[0].title || this.state.works[0].body ) {
+    if (!this.state.works[0] || this.state.works[0].title || this.state.works[0].body) {
       const url = this.props.url + '.json';
       const token = this.props.token;
       try {
@@ -206,11 +206,11 @@ class Container extends React.Component {
   }
 
   toggleMenu () {
-  	this.state.openMenu ? this.setState({openMenu: false}) : this.setState({openMenu: true});
+    this.setState({openMenu: !this.state.openMenu});
   }
 
   toggleProgress () {
-  	this.state.displayProgress ? this.setState({displayProgress: false}) : this.setState({displayProgress: true});
+    this.setState({displayProgress: !this.state.displayProgress});
   }
 
   render () {
