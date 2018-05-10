@@ -180,18 +180,16 @@ class Container extends React.Component {
     let newDone = this.state.done;
 
     if (newWorks.findIndex(work => work.id === id) > -1) {
-      let work = newWorks.find(work => work.id === id);
+      let work = newWorks.splice(newWorks.findIndex(work => work.id === id), 1)[0];
       work.inputCount++;
       work.openBody = false;
       work.finished_at = new Date;
-      newWorks.splice(newWorks.findIndex(work => work.id === id), 1);
       newDone.push(work);
       newDone.sort((a, b) => b.id - a.id);
     } else {
-      let work = newDone.find(work => work.id === id);
+      let work = newDone.splice(newDone.findIndex(work => work.id === id), 1)[0];
       work.inputCount++;
       work.finished_at = null;
-      newDone.splice(newDone.findIndex(work => work.id === id), 1);
       newWorks.push(work);
       newWorks.sort((a, b) => b.id - a.id);
     }
