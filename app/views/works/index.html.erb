@@ -1,4 +1,6 @@
 <% if user_signed_in? %>
+
+	<!-- for those who disabled JavaScript -->
 	<noscript>
 		<p>
 			MyToDo is fully utilizing React.js, thus we need you to enable JavaScript on your browser.
@@ -7,7 +9,21 @@
 			Please allow JavaScript and try again!
 		</p>
 	</noscript>
+
+	<!-- Because We use CSS3 for layout -->
+	<script>
+		window.onload = function() {
+			if (window.activeXObject) {
+				alert('MyToDo is not supporting Internet Explorer.\nPlease use modern Browser like Chrome or Edge.');
+			}
+		}
+	</script>
+
+	<!-- Main Block Start -->
 	<%= react_component("Container", { works: @works, done: @done, url: works_path, edit_user: edit_user_registration_path, sign_out: destroy_user_session_path, token: form_authenticity_token }, { prerender: true, class: "container" }) %>
+	<!-- End of Main Block -->
+
+
 <% else %>
 	<div class="devise">
 	  <div class="message">

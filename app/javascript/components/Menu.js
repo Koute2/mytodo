@@ -45,6 +45,7 @@ export default class Menu extends React.Component {
           credentials: 'same-origin'
         });
         if (response.ok) {
+          // reload
           location.href = "/";
         }
       }

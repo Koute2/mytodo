@@ -16,6 +16,7 @@ export default class WorkContainer extends React.Component {
   }
 
   modTitle (event) {
+    // Warn: Don't do "this.props.work.inputCount++"
     const count = this.props.work.inputCount + 1;
     this.props.modTitle(this.props.work.id, event.target.value, count);
   }
@@ -31,6 +32,7 @@ export default class WorkContainer extends React.Component {
 
   handleFinished (event) {
     this.props.work.title || this.props.work.body ? this.props.toggleFinished(this.props.work.id) : null;
+    // Prevent onclick={ToggleBody} to trigger
     event.stopPropagation();
   }
 

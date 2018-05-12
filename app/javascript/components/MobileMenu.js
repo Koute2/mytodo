@@ -18,6 +18,7 @@ export default class MobileMenu extends React.Component {
   }
 
   handleClear () {
+    // Clear Filter and close input field
   	this.setState({openSearch: false});
   	this.props.onChange("");
   }

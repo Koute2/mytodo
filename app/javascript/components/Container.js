@@ -29,6 +29,7 @@ class Container extends React.Component {
   }
 
   componentDidMount () {
+    //  adds some attributes on EACH ToDos for future Editting
   	let newWorks = this.state.works;
   	let newDone = this.state.done;
   	newWorks.map(work => {
@@ -46,10 +47,12 @@ class Container extends React.Component {
 
   toggleBody (id, toggle) {
     if (this.state.works.findIndex(work => work.id === id) > -1) {
+      // When the ToDo is found on progress ToDo lists
     	let newWorks = this.state.works;
     	newWorks.findIndex(work => work.id === id ? work.openBody = toggle : null);
     	this.setState({works: newWorks});
     } else {
+      // When the ToDo is found on finished lists
       let newDone = this.state.done;
       newDone.findIndex(work => work.id === id ? work.openBody = toggle : null);
       this.setState({done: newDone});
@@ -57,10 +60,12 @@ class Container extends React.Component {
   }
 
   changeFilter (newFilter) {
+    // the filter should be handled from other components
   	this.setState({filter: newFilter});
   }
 
   modChildTitle (id, title, count) {
+    // splitted editting block for efficiency
     let newWorks = this.state.works;
     newWorks.findIndex(work => {
       if (work.id === id) {
@@ -73,6 +78,7 @@ class Container extends React.Component {
   }
 
   modChildBody (id, body, count) {
+    // splitted editting block for efficiency
     let newWorks = this.state.works;
     newWorks.findIndex(work => {
       if (work.id === id) {
@@ -85,11 +91,13 @@ class Container extends React.Component {
   }
 
   waitLastInput (id, count) {
+    // after 3 sec passed, this block will trigger and check if any user input
   	const work = this.state.works.find(work => work.id === id);
      work && work.inputCount === count ? this.submitChild(id) : null;
   }
 
   async submitChild (id) {
+    // submit editted ToDo as a Json, then get response that only contains status code
   	const url = this.props.url + '/' + id + '.json';
     const token = this.props.token;
     const work = this.state.works.find(work => work.id === id) || this.state.done.find(work => work.id === id);
@@ -117,6 +125,7 @@ class Container extends React.Component {
   }
 
   async deleteChild (id) {
+    // should get '200'.OK
     const url = this.props.url + '/' + id + '.json';
     const token = this.props.token;
     try {
@@ -147,6 +156,7 @@ class Container extends React.Component {
   }
 
   async newChild () {
+    // Submit Create request and get ampty ToDo with ID, then insert on the 1st of ToDos
     if (!this.state.works[0] || this.state.works[0].title || this.state.works[0].body) {
       const url = this.props.url + '.json';
       const token = this.props.token;
@@ -176,6 +186,7 @@ class Container extends React.Component {
   }
 
   toggleFinished (id) {
+    // extract the ToDo with given ID then add to another list, submit the state
     let newWorks = this.state.works;
     let newDone = this.state.done;
 
@@ -204,15 +215,19 @@ class Container extends React.Component {
   }
 
   toggleMenu () {
+    // flip the coin
     this.setState({openMenu: !this.state.openMenu});
   }
 
   toggleProgress () {
+    // vice versa
     this.setState({displayProgress: !this.state.displayProgress});
   }
 
   render () {
+    // define which list to display
   	const displayed = this.state.displayProgress ? this.state.works : this.state.done;
+    // list is filtered without reloading
   	const works = this.state.filter ? displayed.filter(work => work.title.includes(this.state.filter) || work.body.includes(this.state.filter)) : displayed;
 
     return (
