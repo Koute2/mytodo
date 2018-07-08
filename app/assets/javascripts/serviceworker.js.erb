@@ -61,11 +61,11 @@ function onFetch(event) {
   if (!request.url.match(/^https?:\/\/www.mytodo.me/)) {return null};
   if (request.method !== 'GET') {return null};
 
-  event.reqponseWith(
+  event.respondWith(
     fetch(request)
       .catch(function fallback() {
-        cashes.match(request).then(function(response) {
-          response || cashes.match("/offline.html");
+        caches.match(request).then(function(response) {
+          response || caches.match("/offline.html");
         })
       })
   );
