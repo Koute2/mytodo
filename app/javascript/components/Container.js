@@ -26,6 +26,7 @@ class Container extends React.Component {
   	this.toggleMenu = this.toggleMenu.bind(this);
   	this.toggleProgress = this.toggleProgress.bind(this);
     this.toggleFinished = this.toggleFinished.bind(this);
+    this.jsonRequest = this.jsonRequest.bind(this);
   }
 
   componentDidMount () {
@@ -93,7 +94,19 @@ class Container extends React.Component {
   waitLastInput (id, count) {
     // after 3 sec passed, this block will trigger and check if any user input
   	const work = this.state.works.find(work => work.id === id);
-     work && work.inputCount === count ? this.submitChild(id) : null;
+    work && work.inputCount === count ? this.submitChild(id) : null;
+  }
+
+  jsonRequest (token, method, body) {
+    return {
+      headers: {
+        'X-CSRF-Token': token,
+        'Content-Type': 'application/json; charset=utf-8'
+      },
+      method: method,
+      credentials: 'same-origin',
+      body: body
+    }
   }
 
   async submitChild (id) {
@@ -101,20 +114,14 @@ class Container extends React.Component {
   	const url = this.props.url + '/' + id + '.json';
     const token = this.props.token;
     const work = this.state.works.find(work => work.id === id) || this.state.done.find(work => work.id === id);
+    const body = JSON.stringify({
+      title: work.title,
+	    body: work.body,
+      finished_at: work.finished_at
+    });
+
     try {
-    	let response = await fetch(url, {
-	      headers: {
-	        'X-CSRF-Token': token,
-	        'Content-Type': 'application/json; charset=utf-8'
-	      },
-	      method: 'PATCH',
-	      credentials: 'same-origin',
-	      body: JSON.stringify({
-	        title: work.title,
-	        body: work.body,
-          finished_at: work.finished_at
-	      })
-	    });
+    	let response = await fetch(url, this.jsonRequest(token, 'PATCH', body));
       if (response.ok) {
       	console.log('Updated: ', response);
       }
@@ -129,14 +136,7 @@ class Container extends React.Component {
     const url = this.props.url + '/' + id + '.json';
     const token = this.props.token;
     try {
-    	let response = await fetch(url, {
-	      headers: {
-	        'X-CSRF-Token': token,
-	        'Content-Type': 'application/json; charset=utf-8'
-	      },
-	      method: 'DELETE',
-	      credentials: 'same-origin'
-	    });
+    	let response = await fetch(url, this.jsonRequest(token, 'DELETE', null));
 	    if (response.ok) {
 	    	console.log('Deleted: ', response);
         if (this.state.works.findIndex(work => work.id === id) > -1) {
@@ -161,14 +161,7 @@ class Container extends React.Component {
       const url = this.props.url + '.json';
       const token = this.props.token;
       try {
-        let response = await fetch(url, {
-          headers: {
-            'X-CSRF-Token': token,
-            'Content-Type': 'application/json; charset=utf-8'
-          },
-          method: 'POST',
-          credentials: 'same-origin'
-        });
+        let response = await fetch(url, this.jsonRequest(token, 'POST', null));
         if (response.ok) {
           console.log('Posted: ', response);
           let jsonResponse = await response.json();
@@ -216,12 +209,12 @@ class Container extends React.Component {
 
   toggleMenu () {
     // flip the coin
-    this.setState({openMenu: !this.state.openMenu});
+    this.setState(prevState => {return {openMenu: !prevState.openMenu}});
   }
 
   toggleProgress () {
     // vice versa
-    this.setState({displayProgress: !this.state.displayProgress});
+    this.setState(prevState => {return {displayProgress: !prevState.displayProgress}});
   }
 
   render () {
